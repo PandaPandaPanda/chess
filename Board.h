@@ -6,6 +6,6 @@
 class Board {
   std::vector<std::vector<Cell>> grid;
 public:
-  void move(int startRow, int startCol, int destRow, int destCol);
+  void move(std::pair<int, int> start, std::pair<int, int> dest);
 };
 #endif

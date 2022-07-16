@@ -2,22 +2,24 @@
 #define __ChessPiece_h__
 #include "Color.h"
 #include "Board.h"
-#include "vector"
+#include <vector>
 
 class ChessPiece {
   const Color c;
   int row, col;
 
+  virtual std::vector<std::pair<int, int>> possibleMoves() = 0;
+  virtual bool canDoMove(std::pair<int, int> dest, const Board &b) = 0;
+  virtual int value() = 0;
 protected:
-  ChessPiece(int, int);
+  ChessPiece(Color, int, int);
 
 public:
   Color getColor();
-  pair<int, int> getPosition();
-
+  std::pair<int, int> getPosition();
+  std::vector<std::pair<int, int>> getPossibleMoves();
+  bool canMove(std::pair<int, int> dest, const Board &b);
+  int getValue();
   virtual ~ChessPiece();
-  virtual std::vector<std::vector<pair<int, int>> getPossibleMoves() = 0;
-  virtual bool canMove(int destRow, int destCol, const Board &b) = 0;
-  virtual int getValue() = 0;
 };
 #endif

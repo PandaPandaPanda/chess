@@ -3,10 +3,10 @@
 #include "ChessPiece.h"
 
 class Queen : public ChessPiece {
-  Queen();
-  ~Queen() override;
-  std::vector<std::vector<pair<int, int>> getPossibleMoves() override; 
-  bool canMove(int destRow, int destCol, const Board &b) override;
-  int getValue() override;
+  std::vector<std::pair<int, int>> possibleMoves() override;
+  bool canDoMove(std::pair<int, int> dest, const Board &b) override;
+  int value() override;
+public:
+  Queen(Color, int, int);
 };
 #endif
