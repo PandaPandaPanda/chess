@@ -7,8 +7,10 @@ class Cell {
   ChessPiece *p;
   TextDisplay *td;
 
-  public:
-  void attach(); // attach observer
-  void notifyGraphicOvserver();
+public:
+  Cell(ChessPiece *);
+  void movePieceTo(Cell &);
+  void attach(TextDisplay *); // attach observer
+  void notifyTextObserver();
 };
 #endif

@@ -3,12 +3,18 @@
 #include "Board.h"
 #include "TextDisplay.h"
 #include "Color.h"
+#include "Team.h"
 
 class Game {
   Board b;
   TextDisplay t;
   Color turn;
+  Team black;
+  Team white;
 public:
-  void playTurn();
+  Game(Player *, Player *);
+  void move(std::pair<int, int> start, std::pair<int, int> dest);
+  void resign();
+  void setup();
 };
 #endif
