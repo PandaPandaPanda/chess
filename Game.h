@@ -8,13 +8,16 @@
 class Game {
   Board b;
   TextDisplay t;
-  Color turn;
+  int turn; // starts with 0 which is black's turn
   Team black;
   Team white;
+
+  bool canMove(std::pair<int, int> start, std::pair<int, int> dest);
 public:
-  Game(Player *, Player *);
-  void move(std::pair<int, int> start, std::pair<int, int> dest);
+  Game();
+  void setup(Player *blackPlayer, Player *whitePlayer);
+  void setPlayer(Color c, Player *p);
+  bool move(std::pair<int, int> start, std::pair<int, int> dest);
   void resign();
-  void setup();
 };
 #endif

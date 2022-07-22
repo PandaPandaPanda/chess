@@ -11,6 +11,8 @@ class Team {
   Player *p;
   std::vector<ChessPiece *> pieces;
 public:
+  Team(Color c);
+  void setPlayer(Player *p);
   void removePiece(ChessPiece *);
   void promotePawn(Pawn *);
 };
