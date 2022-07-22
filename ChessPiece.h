@@ -4,6 +4,15 @@
 #include "Board.h"
 #include <vector>
 
+enum ChessType {
+  Pawn,
+  Bishop,
+  Knight,
+  Rook,
+  Queen,
+  King
+};
+
 class ChessPiece {
   const Color c;
   int row, col;
