@@ -25,12 +25,12 @@ protected:
   ChessPiece(Color, int, int, string type);
 
 public:
-  Color getColor();
-  std::pair<int, int> getPosition();
-  std::vector<std::pair<int, int>> getPossibleMoves();
-  bool canMove(std::pair<int, int> dest, const Board &b);
-  int getValue();
-  string getType(); //may be temporary
+  Color getColor() const;
+  std::pair<int, int> getPosition() const;
+  std::vector<std::pair<int, int>> getPossibleMoves() const;
+  bool canMove(std::pair<int, int> dest, const Board &b) const;
+  int getValue() const;
+  string getType() const; //may be temporary
   void movePiece(pair<int,int>); //update row and col upon chess piece moved
   virtual ~ChessPiece();
 };
