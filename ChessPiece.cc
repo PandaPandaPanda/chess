@@ -12,8 +12,8 @@ pair<int, int> ChessPiece::getPosition() const {
   return {row, col};
 }
 
-vector<pair<int, int>> ChessPiece::getPossibleMoves() const {
-  return possibleMoves();
+vector<pair<int, int>> ChessPiece::getPossibleMoves(const Board &b) const {
+  return possibleMoves(b);
 }
 
 bool ChessPiece::canMove(const pair<int, int> dest, const Board &b) const {

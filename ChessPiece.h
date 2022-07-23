@@ -17,7 +17,7 @@ class ChessPiece {
   const Color c;
   int row, col;
 
-  virtual std::vector<std::pair<int, int>> possibleMoves() const = 0;
+  virtual std::vector<std::pair<int, int>> possibleMoves(const Board &b) const = 0;
   virtual bool canDoMove(const std::pair<int, int> dest, const Board &b) const = 0;
   virtual int value() const = 0;
   virtual char type() const = 0;
@@ -27,7 +27,7 @@ protected:
 public:
   Color getColor() const;
   std::pair<int, int> getPosition() const;
-  std::vector<std::pair<int, int>> getPossibleMoves() const;
+  std::vector<std::pair<int, int>> getPossibleMoves(const Board &b) const;
   bool canMove(const std::pair<int, int> dest, const Board &b) const;
   int getValue() const;
   char getType() const;

@@ -1,9 +1,46 @@
+#include <vector>
+#include "Board.h"
 #include "Bishop.h"
+#include "ChessPiece.h"
 
 using namespace std;
 
-vector<pair<int, int>> Bishop::possibleMoves() const {
-  // todo
+void Bishop::possibleMovesDiagonal(const Board &b, int dr, int dc, vector<pair<int, int>> &moves) const {
+  pair<int, int> pos = getPosition();
+  const Color myColor = getColor();
+
+  pos.first += dr;
+  pos.second += dc;
+  while (inBounds(pos)) {
+    const ChessPiece *p = b.getChessPiece(pos.first, pos.second);
+    if (p == nullptr) { // nothing there
+      moves.emplace_back(pos);
+    } else {
+      if (myColor != p->getColor()) { // take enemy piece
+        moves.emplace_back(pos);
+      }
+      break;
+    }
+    
+    pos.first += dr;
+    pos.second += dc;
+  }
+}
+
+vector<pair<int, int>> Bishop::possibleMoves(const Board &b) const {
+  vector<pair<int, int>> moves;
+
+  // check all four diagonal directions
+  // NE
+  possibleMovesDiagonal(b, -1, 1, moves);
+  // NW
+  possibleMovesDiagonal(b, -1, -1, moves);
+  // SW
+  possibleMovesDiagonal(b, 1, -1, moves);
+  // SE
+  possibleMovesDiagonal(b, 1, 1, moves);
+
+  return moves;
 }
 
 bool Bishop::canDoMove(const pair<int, int> dest, const Board &b) const {
@@ -17,7 +54,7 @@ bool Bishop::canDoMove(const pair<int, int> dest, const Board &b) const {
   int dc = dest.second > pos.second ? 1 : -1;
 
   // check board along that direction
-  Color myColor = getColor();
+  const Color myColor = getColor();
   pos.first += dr;
   pos.second += dc;
   while (inBounds(pos)) {
