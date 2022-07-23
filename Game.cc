@@ -74,7 +74,11 @@ Game::Game() : b{Board()},
       white{Team(Color::White)},
       endgame{false} {}
 
-void Game::setup(Player *blackPlayer, Player *whitePlayer) {
+void Game::setup() {
+    // todo
+}
+
+void Game::setPlayers(Player *blackPlayer, Player *whitePlayer) {
     setPlayer(Color::Black, blackPlayer);
     setPlayer(Color::White, whitePlayer);
 }
@@ -110,4 +114,3 @@ void Game::resign() {
 bool Game::hasGameEnded() {
     return endgame;
 }
-

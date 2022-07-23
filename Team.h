@@ -13,11 +13,8 @@ class Team {
 
 public:
   Team(Color c);
-<<<<<<< HEAD
   const ChessPiece *getKing();
   const std::vector<ChessPiece *> getPieaces();
-=======
->>>>>>> f4affcd18704d4688df403cff1a199aff7d6daa8
   void setPlayer(Player *p);
   void removePiece(ChessPiece *);
   void promotePawn(Pawn *);
