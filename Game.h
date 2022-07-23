@@ -20,8 +20,7 @@ class Game {
   
 public:
   Game();
-  void setup();
-  void setPlayers(Player *blackPlayer, Player *whitePlayer);
+  void setup(Player * blackPlayer, Player * whitePlayer);
   void resign();
   bool move(std::pair<int, int> start, std::pair<int, int> dest);
   bool hasGameEnded();

@@ -11,17 +11,17 @@
 using namespace std;
 
 // where do we get the board and team from?
-Player *createPlayer(string player, const Board &b, const Team &t) {
+Player *createPlayer(string player) {
   if (player == "human") {
     return new Human{};
   } else if (player == "computer1") {
-    return new Computer1{b, t};
+    return new Computer1{};
   } else if (player == "computer2") {
-    return new Computer2{b, t};
+    return new Computer2{};
   } else if (player == "computer3") {
-    return new Computer3{b, t};
+    return new Computer3{};
   } else if (player == "computer4") {
-    return new Computer4{b, t};
+    return new Computer4{};
   } else {
     return nullptr;
   }
@@ -30,22 +30,22 @@ Player *createPlayer(string player, const Board &b, const Team &t) {
 int main() {
   string cmd;
   Game game;
+  Player *whitePlayer;
+  Player *blackPlayer;
   while (cin >> cmd) {
     if (cmd == "game") {
-      string whiteplayer, blackplayer;
-      cin >> whiteplayer >> blackplayer;
-      // Player *whitePlayer = createPlayer(whiteplayer, ); // where to get board and team
-      // Player *blackPlayer = createPlayer(blackplayer, );
-      // game.setPlayers(blackPlayer, whitePlayer);
+      string whiteType, blackType;
+      cin >> whiteType >> blackType;
+      whitePlayer = createPlayer(whiteType); 
+      blackPlayer = createPlayer(blackType); 
     } else if (cmd == "resign") {
       game.resign();
     } else if (cmd == "move") {
       // game.move(); // todo, not sure how to do this
     } else if (cmd == "setup") {
-      game.setup();
+      game.setup(blackPlayer, whitePlayer);
     } else {
       cout << "Invalid command: " << cmd << endl;
     }
-
   }
 }

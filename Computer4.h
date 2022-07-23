@@ -3,7 +3,8 @@
 #include "Computer.h"
 class Computer4 : public Computer {
   void doPlay() override;
+  void doSetup(Board *, Team *) override;
 public:
-  Computer4(Board, Team);
+  Computer4();
 };
 #endif
