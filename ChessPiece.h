@@ -16,22 +16,22 @@ enum ChessType {
 class ChessPiece {
   const Color c;
   int row, col;
-  string type; //may be temporary
 
-  virtual std::vector<std::pair<int, int>> possibleMoves() = 0;
-  virtual bool canDoMove(std::pair<int, int> dest, const Board &b) = 0;
-  virtual int value() = 0;
+  virtual std::vector<std::pair<int, int>> possibleMoves() const = 0;
+  virtual bool canDoMove(const std::pair<int, int> dest, const Board &b) const = 0;
+  virtual int value() const = 0;
+  virtual char type() const = 0;
 protected:
-  ChessPiece(Color, int, int, string type);
+  ChessPiece(Color, int, int);
 
 public:
   Color getColor() const;
   std::pair<int, int> getPosition() const;
   std::vector<std::pair<int, int>> getPossibleMoves() const;
-  bool canMove(std::pair<int, int> dest, const Board &b) const;
+  bool canMove(const std::pair<int, int> dest, const Board &b) const;
   int getValue() const;
-  string getType() const; //may be temporary
-  void movePiece(pair<int,int>); //update row and col upon chess piece moved
+  char getType() const;
+  void movePiece(const std::pair<int,int>); // update row and col upon chess piece moved
   virtual ~ChessPiece();
 };
 #endif
