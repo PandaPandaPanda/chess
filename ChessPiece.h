@@ -16,6 +16,7 @@ enum ChessType {
 class ChessPiece {
   const Color c;
   int row, col;
+  bool hasMoved = false;
 
   virtual std::vector<std::pair<int, int>> possibleMoves(const Board &b) const = 0;
   virtual bool canDoMove(const std::pair<int, int> dest, const Board &b) const = 0;
@@ -24,6 +25,7 @@ class ChessPiece {
 protected:
   ChessPiece(Color, int, int);
   void possibleMovesDirection(const Board &b, int dr, int dc, vector<pair<int, int>> &moves) const;
+  bool moved() const;
 
 public:
   Color getColor() const;

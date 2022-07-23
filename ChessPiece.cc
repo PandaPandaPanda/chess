@@ -26,6 +26,10 @@ void ChessPiece::possibleMovesDirection(const Board &b, int dr, int dc, vector<p
   }
 }
 
+bool ChessPiece::moved() const {
+  return hasMoved;
+}
+
 Color ChessPiece::getColor() const {
   return c;
 }
@@ -59,6 +63,7 @@ char ChessPiece::getType() const {
 void ChessPiece::movePiece(const pair<int, int> newPos) {
   row = newPos.first;
   col = newPos.second;
+  hasMoved = true;
 }
 
 ChessPiece::~ChessPiece() {} // todo? nothing for now
