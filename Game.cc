@@ -22,7 +22,7 @@ bool Game::canMove(pair<int, int> start, pair<int, int> dest) {
     return false;
   }
 
-  // check owning pieace at start
+  // check owning piece at start
   if (!startPiece) {
     return false;
   }
@@ -52,8 +52,8 @@ bool Game::isCheckMate() {
 
   for (int i = kingPossibleMoves.size() - 1; i >= 0; i--) {
     bool badMove = false;
-    for (ChessPiece *oppPieace : oppTeam->getPieaces()) {
-      for (pair<int, int> oppPossibleMoves : oppPieace->getPossibleMoves(b)) {
+    for (ChessPiece *oppPiece : oppTeam->getPieces()) {
+      for (pair<int, int> oppPossibleMoves : oppPiece->getPossibleMoves(b)) {
         if (oppPossibleMoves == kingPossibleMoves[i]) {
           badMove = true;
           break;
