@@ -5,7 +5,11 @@
 
 class Computer : public Player {
   virtual void doPlay() = 0;
+  virtual void doSetup(Board *, Team *) = 0;
+  PlayerType doGetType() override;
 protected:
-  Computer(Board, Team);
+  Computer();
+public:
+  void setup(Board *b, Team *t);
 };
 #endif
