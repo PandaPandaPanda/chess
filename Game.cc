@@ -11,7 +11,7 @@ using namespace std;
 const int BOARDSIZE = 8;
 
 bool Game::canMove(pair<int, int> start, pair<int, int> dest) {
-    const ChessPiece *startPieace = b.getChessPieace(start.first, start.second);
+    const ChessPiece *startPieace = b.getChessPiece(start.first, start.second);
 
     // isValid start&end
     if (start.first < 0 || start.second >= BOARDSIZE || dest.first < 0 || dest.second >= BOARDSIZE) {
@@ -28,7 +28,7 @@ bool Game::canMove(pair<int, int> start, pair<int, int> dest) {
     }
 
     // check reachable dest
-    const ChessPiece *destPieace = b.getChessPieace(dest.first, dest.second);
+    const ChessPiece *destPieace = b.getChessPiece(dest.first, dest.second);
     if (destPieace && destPieace->getColor() == turnColor) {
         return false;
     }

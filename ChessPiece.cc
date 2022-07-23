@@ -17,6 +17,9 @@ vector<pair<int, int>> ChessPiece::getPossibleMoves() const {
 }
 
 bool ChessPiece::canMove(const pair<int, int> dest, const Board &b) const {
+  if (!inBounds(dest)) {
+    return false;
+  }
   return canDoMove(dest, b);
 }
 
@@ -34,3 +37,11 @@ void ChessPiece::movePiece(const pair<int, int> newPos) {
 }
 
 ChessPiece::~ChessPiece() {} // todo? nothing for now
+
+bool ChessPiece::inBounds(int row, int col) {
+  return 0 <= row && row < 8 && 0 <= col && col < 8;
+}
+
+bool ChessPiece::inBounds(const std::pair<int, int> pos) {
+  return inBounds(pos.first, pos.second);
+}

@@ -8,7 +8,7 @@ class Board {
   std::vector<std::vector<Cell>> grid;
 public:
   Board();
-  const ChessPiece* getChessPieace(int r, int c);
+  const ChessPiece* getChessPiece(int r, int c) const;
   void move(std::pair<int, int> start, std::pair<int, int> dest);
   friend ostream& operator<<(ostream&, Board&); //temporary, to remove later
 };

@@ -33,5 +33,7 @@ public:
   char getType() const;
   void movePiece(const std::pair<int,int>); // update row and col upon chess piece moved
   virtual ~ChessPiece();
+  static bool inBounds(int, int);
+  static bool inBounds(const std::pair<int, int>);
 };
 #endif
