@@ -5,12 +5,12 @@
 #include <vector>
 
 enum ChessType {
-  Pawn,
-  Bishop,
-  Knight,
-  Rook,
-  Queen,
-  King
+  PAWN,
+  BISHOP,
+  KNIGHT,
+  ROOK,
+  QUEEN,
+  KING
 };
 
 class ChessPiece {
