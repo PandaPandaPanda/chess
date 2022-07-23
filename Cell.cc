@@ -1,4 +1,5 @@
 #include "Cell.h"
+#include "ChessPiece.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,6 +13,10 @@ Cell::Cell()
 Cell::Cell(ChessPiece* p)
   : p{ p }
   , td{ nullptr } {};
+
+const ChessPiece *Cell::getChessPiece() const {
+  return p;
+}
 
 void
 Cell::movePieceTo(Cell& newPos)

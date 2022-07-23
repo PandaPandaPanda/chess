@@ -10,6 +10,8 @@ class Cell {
 public:
   Cell();
   Cell(ChessPiece *);
+  const ChessPiece *getChessPiece() const;
+  bool canMove(const std::pair<int, int>, const Board &);
   void movePieceTo(Cell &);
   void attach(TextDisplay *); // attach observer
   void notifyTextObserver();
