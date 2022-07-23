@@ -10,6 +10,7 @@ class King : public ChessPiece {
   char type() const override;
 public:
   King(Color, int, int);
+  bool inCheck(const Board &b) const;
   static const std::vector<std::pair<int, int>> moveVectors;
 };
 const std::vector<std::pair<int, int>> King::moveVectors 

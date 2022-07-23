@@ -75,3 +75,19 @@ char King::type() const {
 }
 
 King::King(Color c, int row, int col): ChessPiece{c, row, col} {}
+
+bool King::inCheck(const Board &b) const {
+  const Color myColor = getColor();
+  // todo maybe find a better way to iterate the Board (iterator?)
+  for (int r = 0; r < 8; ++r) {
+    for (int c = 0; c < 8; ++c) {
+      const ChessPiece *p = b.getChessPiece(r, c);
+      if (p != nullptr && p->getColor() != myColor) {
+        if (p->canMove(getPosition(), b)) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
