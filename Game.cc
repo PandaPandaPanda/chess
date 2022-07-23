@@ -48,12 +48,12 @@ bool Game::isCheckMate() {
   Team *curTeam = turnColor == Color::Black ? &black : &white;
   Team *oppTeam = turnColor == Color::Black ? &white : &black;
   vector<pair<int, int>> kingPossibleMoves =
-      curTeam->getKing()->getPossibleMoves();
+      curTeam->getKing()->getPossibleMoves(b);
 
   for (int i = kingPossibleMoves.size() - 1; i >= 0; i--) {
     bool badMove = false;
     for (ChessPiece *oppPieace : oppTeam->getPieaces()) {
-      for (pair<int, int> oppPossibleMoves : oppPieace->getPossibleMoves()) {
+      for (pair<int, int> oppPossibleMoves : oppPieace->getPossibleMoves(b)) {
         if (oppPossibleMoves == kingPossibleMoves[i]) {
           badMove = true;
           break;
