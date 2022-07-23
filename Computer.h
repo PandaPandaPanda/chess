@@ -1,7 +1,10 @@
 #ifndef __Computer_h__
 #define __Computer_h__
-#include "Team.h"
 #include "Player.h"
+
+class Board;
+class Team;
+enum PlayerType;
 
 class Computer : public Player {
   virtual void doPlay() = 0;

@@ -1,6 +1,10 @@
 #ifndef __King_h__
 #define __King_h__
+#include <vector>
 #include "ChessPiece.h"
+
+class Board;
+enum Color;
 
 class King : public ChessPiece {
   bool enemyCanAttack(const std::pair<int, int> pos, const Board &b) const;
@@ -13,7 +17,4 @@ public:
   bool inCheck(const Board &b) const;
   static const std::vector<std::pair<int, int>> moveVectors;
 };
-const std::vector<std::pair<int, int>> King::moveVectors 
-  = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, 
-     {0, 1}, {1, -1}, {1, 0}, {1, -1}};
 #endif

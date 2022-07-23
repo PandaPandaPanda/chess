@@ -3,6 +3,8 @@
 #include <memory>
 
 #include "Board.h"
+#include "Cell.h"
+#include "ChessPiece.h"
 #include "Color.h"
 #include "Computer.h"
 #include "Exception.h"
@@ -77,9 +79,9 @@ bool Game::isCheckMate() {
 Game::Game()
     : b{Board()},
       t{TextDisplay()},
-      turnColor{Color::Black},
       black{Team(Color::Black)},
       white{Team(Color::White)},
+      turnColor{Color::Black},
       endgame{false} {}
 
 void Game::setup(Player *blackPlayer, Player *whitePlayer) {

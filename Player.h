@@ -1,6 +1,5 @@
 #ifndef __Player_h__
 #define __Player_h__
-#include "ChessPiece.h"
 
 enum PlayerType {
   H,

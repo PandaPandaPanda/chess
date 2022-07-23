@@ -1,12 +1,13 @@
 #include <iostream>
 #include <string>
-#include "Game.h"
-#include "Player.h"
-#include "Human.h"
+#include "Cell.h"
 #include "Computer1.h"
 #include "Computer2.h"
 #include "Computer3.h"
 #include "Computer4.h"
+#include "Game.h"
+#include "Human.h"
+#include "Player.h"
 
 using namespace std;
 

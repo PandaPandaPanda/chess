@@ -1,7 +1,13 @@
 #include "Knight.h"
+
+#include "Board.h"
 #include "ChessPiece.h"
 
 using namespace std;
+
+const std::vector<std::pair<int, int>> Knight::moveVectors 
+  = {{-2, -1}, {-2, 1}, {-1, 2}, {1, 2}, 
+     {2, 1}, {2, -1}, {1, -2}, {-1, -2}};
 
 vector<pair<int, int>> Knight::possibleMoves(const Board &b) const {
   vector<pair<int, int>> moves;

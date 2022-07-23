@@ -1,7 +1,13 @@
 #include "King.h"
+
+#include "Board.h"
 #include "ChessPiece.h"
 
 using namespace std;
+
+const std::vector<std::pair<int, int>> King::moveVectors 
+  = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, 
+     {0, 1}, {1, -1}, {1, 0}, {1, -1}};
 
 bool King::enemyCanAttack(const std::pair<int, int> pos, const Board &b) const {
   const Color myColor = getColor();

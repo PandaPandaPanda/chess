@@ -1,8 +1,7 @@
 #ifndef __ChessPiece_h__
 #define __ChessPiece_h__
-#include "Color.h"
-#include "Board.h"
 #include <vector>
+#include "Color.h"
 
 enum ChessType {
   PAWN,
@@ -12,6 +11,8 @@ enum ChessType {
   QUEEN,
   KING
 };
+
+class Board;
 
 class ChessPiece {
   const Color c;
@@ -24,7 +25,7 @@ class ChessPiece {
   virtual char type() const = 0;
 protected:
   ChessPiece(Color, int, int);
-  void possibleMovesDirection(const Board &b, int dr, int dc, vector<pair<int, int>> &moves) const;
+  void possibleMovesDirection(const Board &b, int dr, int dc, std::vector<std::pair<int, int>> &moves) const;
   bool moved() const;
 
 public:

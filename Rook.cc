@@ -1,5 +1,7 @@
 #include "Rook.h"
 
+#include "Board.h"
+
 using namespace std;
 
 vector<pair<int, int>> Rook::possibleMoves(const Board &b) const {

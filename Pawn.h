@@ -1,6 +1,10 @@
 #ifndef __Pawn_h__
 #define __Pawn_h__
+#include <vector>
 #include "ChessPiece.h"
+
+class Board;
+enum Color;
 
 class Pawn : public ChessPiece {
   int moveDirection() const;

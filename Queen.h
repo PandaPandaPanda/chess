@@ -1,6 +1,10 @@
 #ifndef __Queen_h__
 #define __Queen_h__
+#include <vector>
 #include "ChessPiece.h"
+
+class Board;
+enum Color;
 
 class Queen : public ChessPiece {
   std::vector<std::pair<int, int>> possibleMoves(const Board &b) const override;

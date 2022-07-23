@@ -1,3 +1,4 @@
+#include "Board.h"
 #include "ChessPiece.h"
 
 using namespace std;

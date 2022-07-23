@@ -1,6 +1,10 @@
 #ifndef __Knight_h__
 #define __Knight_h__
+#include <vector>
 #include "ChessPiece.h"
+
+class Board;
+enum Color;
 
 class Knight : public ChessPiece {
   std::vector<std::pair<int, int>> possibleMoves(const Board &b) const override;
@@ -11,7 +15,4 @@ public:
   Knight(Color, int, int);
   static const std::vector<std::pair<int, int>> moveVectors;
 };
-const std::vector<std::pair<int, int>> Knight::moveVectors 
-  = {{-2, -1}, {-2, 1}, {-1, 2}, {1, 2}, 
-     {2, 1}, {2, -1}, {1, -2}, {-1, -2}};
 #endif

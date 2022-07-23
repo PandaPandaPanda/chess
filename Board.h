@@ -1,8 +1,10 @@
 #ifndef __Board_h__
 #define __Board_h__
 #include <vector>
-#include <ostream>
-#include "Cell.h"
+#include <iostream>
+
+class Cell;
+class ChessPiece;
 
 class Board {
   std::vector<std::vector<Cell>> grid;
@@ -11,7 +13,7 @@ public:
   Board();
   const ChessPiece* getChessPiece(int r, int c) const;
   void move(std::pair<int, int> start, std::pair<int, int> dest);
-  friend ostream& operator<<(ostream&, Board&); //temporary, to remove later
+  friend std::ostream& operator<<(std::ostream&, Board&); //temporary, to remove later
   void setup();
 };
 #endif

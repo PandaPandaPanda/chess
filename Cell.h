@@ -1,7 +1,10 @@
 #ifndef __Cell_h__
 #define __Cell_h__
-#include "ChessPiece.h"
-#include "TextDisplay.h"
+#include <iostream>
+
+class Board;
+class ChessPiece;
+class TextDisplay;
 
 class Cell {
   ChessPiece *p;
@@ -10,11 +13,12 @@ class Cell {
 public:
   Cell();
   Cell(ChessPiece *);
+  void setChessPiece(ChessPiece *p);
   const ChessPiece *getChessPiece() const;
   bool canMove(const std::pair<int, int>, const Board &);
   void movePieceTo(Cell &);
   void attach(TextDisplay *); // attach observer
   void notifyTextObserver();
-  friend ostream& operator<<(ostream&, Cell&); //temporary, to remove later
+  friend std::ostream& operator<<(std::ostream&, Cell&); //temporary, to remove later
 };
 #endif
