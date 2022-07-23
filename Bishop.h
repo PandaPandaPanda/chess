@@ -3,7 +3,6 @@
 #include "ChessPiece.h"
 
 class Bishop : public ChessPiece {
-  void possibleMovesDiagonal(const Board &b, int dr, int dc, vector<pair<int, int>> &moves) const;
   std::vector<std::pair<int, int>> possibleMoves(const Board &b) const override;
   bool canDoMove(const std::pair<int, int> dest, const Board &b) const override;
   int value() const override;

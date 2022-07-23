@@ -1,35 +1,42 @@
-#include <vector>
-#include "Board.h"
-#include "Bishop.h"
-#include "ChessPiece.h"
+#include "Rook.h"
 
 using namespace std;
 
-vector<pair<int, int>> Bishop::possibleMoves(const Board &b) const {
+vector<pair<int, int>> Rook::possibleMoves(const Board &b) const {
   vector<pair<int, int>> moves;
 
-  // check all four diagonal directions
-  // NE
-  possibleMovesDirection(b, -1, 1, moves);
-  // NW
-  possibleMovesDirection(b, -1, -1, moves);
-  // SW
-  possibleMovesDirection(b, 1, -1, moves);
-  // SE
-  possibleMovesDirection(b, 1, 1, moves);
+  // check all four straight directions
+  // N
+  possibleMovesDirection(b, -1, 0, moves);
+  // E
+  possibleMovesDirection(b, 0, 1, moves);
+  // S
+  possibleMovesDirection(b, 1, 0, moves);
+  // W
+  possibleMovesDirection(b, 0, -1, moves);
 
   return moves;
 }
 
-bool Bishop::canDoMove(const pair<int, int> dest, const Board &b) const {
+bool Rook::canDoMove(const pair<int, int> dest, const Board &b) const {
   pair<int, int> pos = getPosition();
-  if (abs(dest.first - pos.first) != abs(dest.second - pos.second)) {
+  if (pos.first != dest.first && pos.second != dest.second) {
     return false;
   }
 
-  // figure out the diagonal direction we are moving
-  int dr = dest.first > pos.first ? 1 : -1;
-  int dc = dest.second > pos.second ? 1 : -1;
+  // figure out the straight direction we are moving
+  int dr = 0;
+  int dc = 0;
+  if (dest.first > pos.first) {
+    dr = 1;
+  } else if (dest.first < pos.first) {
+    dr = -1;
+  }
+  if (dest.second > pos.second) {
+    dc = 1;
+  } else if (dest.second < pos.second) {
+    dc = -1;
+  }
 
   // check board along that direction
   const Color myColor = getColor();
@@ -59,12 +66,12 @@ bool Bishop::canDoMove(const pair<int, int> dest, const Board &b) const {
   return false;
 }
 
-int Bishop::value() const {
-  return 3;
+int Rook::value() const {
+  return 5;
 }
 
-char Bishop::type() const {
-  return 'B';
+char Rook::type() const {
+  return 'R';
 }
 
-Bishop::Bishop(Color c, int row, int col): ChessPiece{c, row, col} {}
+Rook::Rook(Color c, int row, int col): ChessPiece{c, row, col} {}

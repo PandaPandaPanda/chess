@@ -23,6 +23,7 @@ class ChessPiece {
   virtual char type() const = 0;
 protected:
   ChessPiece(Color, int, int);
+  void possibleMovesDirection(const Board &b, int dr, int dc, vector<pair<int, int>> &moves) const;
 
 public:
   Color getColor() const;

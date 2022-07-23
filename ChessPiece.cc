@@ -4,6 +4,28 @@ using namespace std;
 
 ChessPiece::ChessPiece(Color c, int row, int col): c{c}, row{row}, col{col} {}
 
+void ChessPiece::possibleMovesDirection(const Board &b, int dr, int dc, vector<pair<int, int>> &moves) const {
+  pair<int, int> pos = getPosition();
+  const Color myColor = getColor();
+
+  pos.first += dr;
+  pos.second += dc;
+  while (inBounds(pos)) {
+    const ChessPiece *p = b.getChessPiece(pos.first, pos.second);
+    if (p == nullptr) { // nothing there
+      moves.emplace_back(pos);
+    } else {
+      if (myColor != p->getColor()) { // take enemy piece
+        moves.emplace_back(pos);
+      }
+      break;
+    }
+    
+    pos.first += dr;
+    pos.second += dc;
+  }
+}
+
 Color ChessPiece::getColor() const {
   return c;
 }
@@ -18,6 +40,9 @@ vector<pair<int, int>> ChessPiece::getPossibleMoves(const Board &b) const {
 
 bool ChessPiece::canMove(const pair<int, int> dest, const Board &b) const {
   if (!inBounds(dest)) {
+    return false;
+  }
+  if (getPosition() == dest) {
     return false;
   }
   return canDoMove(dest, b);
