@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+
 #include "Cell.h"
 #include "Computer1.h"
 #include "Computer2.h"
@@ -28,24 +29,46 @@ Player *createPlayer(string player) {
   }
 }
 
+pair<int, int> parseMove(string move) {
+  if (move.size() != 2) {
+    return {-1, -1};
+  }
+
+  int row = (char)move[1] - 48 - 1; // extra -1 converting number to index
+  int col = (char)move[0] - 97;
+
+  return {row, col};
+}
+
 int main() {
   string cmd;
   Game game;
   Player *whitePlayer;
   Player *blackPlayer;
-  cout << game; //print out board is working
+  cout << game;  // print out board is working
   while (cin >> cmd) {
     if (cmd == "game") {
       string whiteType, blackType;
       cin >> whiteType >> blackType;
-      whitePlayer = createPlayer(whiteType); 
-      blackPlayer = createPlayer(blackType); 
+      whitePlayer = createPlayer(whiteType);
+      blackPlayer = createPlayer(blackType);
       game.setPlayer(Color::Black, blackPlayer);
       game.setPlayer(Color::White, whitePlayer);
     } else if (cmd == "resign") {
       game.resign();
     } else if (cmd == "move") {
-      // game.move(); // todo, not sure how to do this
+      string startStr, destStr;
+      pair<int, int> start, dest;
+      while (true) {
+        cin >> startStr >> destStr;
+        start = parseMove(startStr);
+        dest = parseMove(destStr);
+        if (game.move(start, dest)) {
+          break;
+        }
+        cout << "Invalid start/dest move" << endl;
+        cin >> startStr >> destStr;
+      }
     } else if (cmd == "setup") {
       game.setup();
     } else {
