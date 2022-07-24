@@ -36,13 +36,10 @@ void TextDisplay::notify(Cell &c) {
 }
 
 ostream &operator<<(ostream &out, const TextDisplay &td) {
-  int rowCount = 8;
-  for (auto& row : td.theDisplay) {
-    out << rowCount << " ";
-    rowCount--;
-
+  for (int r = 7; r >= 0; r--) {
+    out << r + 1 << " "; // index to number
     out << "|";
-    for (auto& cell : row) {
+    for (auto& cell : td.theDisplay[r]) {
       out << cell;
       out << "|";
     }
