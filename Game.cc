@@ -16,11 +16,9 @@ using namespace std;
 
 const int BOARDSIZE = 8;
 
-bool
-Game::canMove(pair<int, int> start, pair<int, int> dest)
-{
+// pair<row, col>
+bool Game::canMove(pair<int, int> start, pair<int, int> dest) {
   const ChessPiece* startPiece = b.getChessPiece(start.first, start.second);
-
   // isValid start&end
   if (start.first < 0 || start.second >= BOARDSIZE || dest.first < 0 ||
       dest.second >= BOARDSIZE) {
@@ -46,16 +44,20 @@ Game::canMove(pair<int, int> start, pair<int, int> dest)
     return false;
   }
 
-  return true;
+  // check legal move
+  for (auto possibleMove : startPiece->getPossibleMoves(b)) {
+    if (possibleMove.first == dest.first && possibleMove.second == dest.second) {
+      return true;
+    }
+  }
+  return false;
 }
 
-bool
-Game::isCheckMate()
-{
+bool Game::isCheckMate() {
   Team* curTeam = turnColor == Color::Black ? &black : &white;
   Team* oppTeam = turnColor == Color::Black ? &white : &black;
   vector<pair<int, int>> kingPossibleMoves =
-    curTeam->getKing()->getPossibleMoves(b);
+      curTeam->getKing()->getPossibleMoves(b);
 
   for (int i = kingPossibleMoves.size() - 1; i >= 0; i--) {
     bool badMove = false;
@@ -82,25 +84,17 @@ Game::isCheckMate()
 }
 
 Game::Game()
-  : t{ new TextDisplay() }
-  , b{ Board(t) }
-  , black{ Team(Color::Black) }
-  , white{ Team(Color::White) }
-  , turnColor{ Color::Black }
-  , endgame{ false }
-{
-}
+    : t{new TextDisplay()},
+      b{Board(t)},
+      black{Team(Color::Black)},
+      white{Team(Color::White)},
+      turnColor{Color::Black},
+      endgame{false} {}
 
-Game::~Game() {
-  delete t;
-}
-void Game::setup() {
-  b.setup();
-}
+Game::~Game() { delete t; }
+void Game::setup() { b.setup(); }
 
-void
-Game::setPlayer(Color c, Player* p)
-{
+void Game::setPlayer(Color c, Player* p) {
   Team* homeTeam;
   if (c == Color::Black) {
     homeTeam = &black;
@@ -121,18 +115,16 @@ Game::setPlayer(Color c, Player* p)
   }
 }
 
-bool
-Game::move(std::pair<int, int> start, std::pair<int, int> dest)
-{
+bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
   if (!canMove(start, dest)) {
     return false;
   }
 
-  b.move(start, dest);
+  b.move(start, dest); // currently cause seg fault
 
   if (isCheckMate()) {
     endgame = true;
-    winner = turnColor; // player wins
+    winner = turnColor;  // player wins
   }
 
   turnColor = turnColor == Color::Black ? Color::White : Color::Black;
@@ -140,22 +132,14 @@ Game::move(std::pair<int, int> start, std::pair<int, int> dest)
   return true;
 }
 
-void
-Game::resign()
-{
+void Game::resign() {
   endgame = true;
   winner =
-    turnColor == Color::Black ? Color::White : Color::Black; // opponent wins
+      turnColor == Color::Black ? Color::White : Color::Black;  // opponent wins
 }
-ostream&
-operator<<(std::ostream& o, Game& g)
-{
+ostream& operator<<(std::ostream& o, Game& g) {
   o << *g.t;
   return o;
 };
 
-bool
-Game::hasGameEnded()
-{
-  return endgame;
-}
+bool Game::hasGameEnded() { return endgame; }
