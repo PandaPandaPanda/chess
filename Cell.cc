@@ -11,8 +11,14 @@ Cell::Cell(): p{nullptr}, td{nullptr} {}
 
 Cell::Cell(ChessPiece* p): p{p}, td{nullptr} {}
 
+void Cell::notifyTextObserver() {
+  td->notify(*this);
+}
+
 void Cell::setChessPiece(ChessPiece *p) {
+  delete this->p;
   this->p = p;
+  notifyTextObserver();
 }
 
 const ChessPiece *Cell::getChessPiece() const {
@@ -34,10 +40,6 @@ void Cell::movePieceTo(Cell& newPos) {
 
 void Cell::attach(TextDisplay* display) {
   td = display;
-}
-
-void Cell::notifyTextObserver() {
-  td->notify(*this);
 }
 
 int Cell::getRow() {
