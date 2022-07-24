@@ -1,5 +1,6 @@
 #include "Game.h"
 
+#include <iostream>
 #include <memory>
 
 #include "Board.h"
@@ -15,8 +16,10 @@ using namespace std;
 
 const int BOARDSIZE = 8;
 
-bool Game::canMove(pair<int, int> start, pair<int, int> dest) {
-  const ChessPiece *startPiece = b.getChessPiece(start.first, start.second);
+bool
+Game::canMove(pair<int, int> start, pair<int, int> dest)
+{
+  const ChessPiece* startPiece = b.getChessPiece(start.first, start.second);
 
   // isValid start&end
   if (start.first < 0 || start.second >= BOARDSIZE || dest.first < 0 ||
@@ -34,7 +37,7 @@ bool Game::canMove(pair<int, int> start, pair<int, int> dest) {
   }
 
   // check reachable dest
-  const ChessPiece *destPiece = b.getChessPiece(dest.first, dest.second);
+  const ChessPiece* destPiece = b.getChessPiece(dest.first, dest.second);
   if (destPiece && destPiece->getColor() == turnColor) {
     return false;
   }
@@ -46,15 +49,17 @@ bool Game::canMove(pair<int, int> start, pair<int, int> dest) {
   return true;
 }
 
-bool Game::isCheckMate() {
-  Team *curTeam = turnColor == Color::Black ? &black : &white;
-  Team *oppTeam = turnColor == Color::Black ? &white : &black;
+bool
+Game::isCheckMate()
+{
+  Team* curTeam = turnColor == Color::Black ? &black : &white;
+  Team* oppTeam = turnColor == Color::Black ? &white : &black;
   vector<pair<int, int>> kingPossibleMoves =
-      curTeam->getKing()->getPossibleMoves(b);
+    curTeam->getKing()->getPossibleMoves(b);
 
   for (int i = kingPossibleMoves.size() - 1; i >= 0; i--) {
     bool badMove = false;
-    for (ChessPiece *oppPiece : oppTeam->getPieces()) {
+    for (ChessPiece* oppPiece : oppTeam->getPieces()) {
       for (pair<int, int> oppPossibleMoves : oppPiece->getPossibleMoves(b)) {
         if (oppPossibleMoves == kingPossibleMoves[i]) {
           badMove = true;
@@ -77,20 +82,29 @@ bool Game::isCheckMate() {
 }
 
 Game::Game()
-    : b{Board()},
-      t{TextDisplay()},
-      black{Team(Color::Black)},
-      white{Team(Color::White)},
-      turnColor{Color::Black},
-      endgame{false} {}
+  : t{ new TextDisplay() }
+  , b{ Board(t) }
+  , black{ Team(Color::Black) }
+  , white{ Team(Color::White) }
+  , turnColor{ Color::Black }
+  , endgame{ false }
+{
+}
 
-void Game::setup(Player *blackPlayer, Player *whitePlayer) {
+Game::~Game() {
+  delete t;
+}
+void
+Game::setup(Player* blackPlayer, Player* whitePlayer)
+{
   setPlayer(Color::Black, blackPlayer);
   setPlayer(Color::White, whitePlayer);
 }
 
-void Game::setPlayer(Color c, Player *p) {
-  Team *homeTeam;
+void
+Game::setPlayer(Color c, Player* p)
+{
+  Team* homeTeam;
   if (c == Color::Black) {
     homeTeam = &black;
     black.setPlayer(p);
@@ -100,7 +114,7 @@ void Game::setPlayer(Color c, Player *p) {
   }
 
   if (p->getType() == PlayerType::C) {
-    dynamic_cast<Computer *>(p)->setup(&b, homeTeam);
+    dynamic_cast<Computer*>(p)->setup(&b, homeTeam);
   };
 
   if (c == Color::Black) {
@@ -110,7 +124,9 @@ void Game::setPlayer(Color c, Player *p) {
   }
 }
 
-bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
+bool
+Game::move(std::pair<int, int> start, std::pair<int, int> dest)
+{
   if (!canMove(start, dest)) {
     return false;
   }
@@ -119,16 +135,28 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
 
   if (isCheckMate()) {
     endgame = true;
-    winner = turnColor;  // player wins
+    winner = turnColor; // player wins
   }
 
   turnColor = turnColor == Color::Black ? Color::White : Color::Black;
 }
 
-void Game::resign() {
+void
+Game::resign()
+{
   endgame = true;
   winner =
-      turnColor == Color::Black ? Color::White : Color::Black;  // opponent wins
+    turnColor == Color::Black ? Color::White : Color::Black; // opponent wins
 }
+ostream&
+operator<<(std::ostream& o, Game& g)
+{
+  o << *g.t;
+  return o;
+};
 
-bool Game::hasGameEnded() { return endgame; }
+bool
+Game::hasGameEnded()
+{
+  return endgame;
+}

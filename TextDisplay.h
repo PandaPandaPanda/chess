@@ -7,6 +7,12 @@ class Cell;
 
 class TextDisplay {
   std::vector<std::vector<char>> theDisplay;
+  //K = King
+  //Q = Queen
+  //R = Rook
+  //B = Bishop
+  //N = Knight
+  //P = Pawn
 public:
   TextDisplay();
   ~TextDisplay();

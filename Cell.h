@@ -9,6 +9,7 @@ class TextDisplay;
 class Cell {
   ChessPiece *p;
   TextDisplay *td;
+  int r, c;
 
 public:
   Cell();
@@ -19,6 +20,9 @@ public:
   void movePieceTo(Cell &);
   void attach(TextDisplay *); // attach observer
   void notifyTextObserver();
+  int getRow();
+  int getCol();
+  void setCoords(int r, int c);
   friend std::ostream& operator<<(std::ostream&, Cell&); //temporary, to remove later
 };
 #endif

@@ -33,6 +33,7 @@ int main() {
   Game game;
   Player *whitePlayer;
   Player *blackPlayer;
+  cout << game; //print out board is working
   while (cin >> cmd) {
     if (cmd == "game") {
       string whiteType, blackType;

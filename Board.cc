@@ -10,6 +10,7 @@
 #include "Pawn.h"
 #include "Queen.h"
 #include "Rook.h"
+#include "TextDisplay.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ bool Board::verify() {
   return true;
 }
 
-Board::Board()
+Board::Board(TextDisplay* td): td{td}
 {
   const Color b = Color::Black;
   const Color w = Color::White;
@@ -31,6 +32,13 @@ Board::Board()
           {{}, {}, {}, {}, {}, {}, {}, {}},
           {{new Pawn{w, 6, 0}}, {new Pawn{w, 6, 1}}, {new Pawn{w, 6, 2}}, {new Pawn{w, 6, 3}}, {new Pawn{w, 6, 4}}, {new Pawn{w, 6, 5}}, {new Pawn{w, 6, 6}}, {new Pawn{w, 6, 7}}},
           {{new Rook{w, 7, 0}}, {new Knight{w, 7, 1}}, {new Bishop{w, 7, 2}}, {new Queen{w, 7, 3}}, {new King{w, 7, 4}}, {new Bishop{w, 7, 5}}, {new Knight{w, 7, 6}}, {new Rook{w, 7, 7}}}};
+    for (int i = 0; i < 8; ++i) {
+      for (int j = 0; j < 8; ++j) {
+        grid[i][j].setCoords(i, j);
+        grid[i][j].attach(td);
+        grid[i][j].notifyTextObserver();
+      }
+  }
 }
 
 const ChessPiece *Board::getChessPiece(int r, int c) const {
@@ -45,19 +53,6 @@ Board::move(std::pair<int, int> start, std::pair<int, int> dest)
   } else {
     cout << "Cannot place piece here";
   }
-}
-
-ostream&
-operator<<(ostream& o, Board& b)
-{
-  // temporary for testing purposes before implementing observer pattern
-  for (auto& row : b.grid) {
-    for (auto& cell : row) {
-      o << cell << '|';
-    }
-    o << '\n';
-  }
-  return o;
 }
 
 void Board::setup() {

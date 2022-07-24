@@ -26,8 +26,10 @@ bool Cell::canMove(const std::pair<int, int> dest, const Board &b) {
 void Cell::movePieceTo(Cell& newPos) {
   delete newPos.p;
   p->movePiece(newPos.p->getPosition());
-  newPos.p = p;
+  newPos.setChessPiece(p);
   p = nullptr;
+  newPos.notifyTextObserver();
+  notifyTextObserver();
 }
 
 void Cell::attach(TextDisplay* display) {
@@ -36,6 +38,19 @@ void Cell::attach(TextDisplay* display) {
 
 void Cell::notifyTextObserver() {
   td->notify(*this);
+}
+
+int Cell::getRow() {
+  return r;
+}
+
+int Cell::getCol() {
+  return c;
+}
+
+void Cell::setCoords(int r, int c) {
+  this->r = r;
+  this->c = c;
 }
 
 ostream& operator<<(ostream& o, Cell& c) {

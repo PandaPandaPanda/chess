@@ -5,15 +5,15 @@
 
 class Cell;
 class ChessPiece;
-
+class TextDisplay;
 class Board {
   std::vector<std::vector<Cell>> grid;
+  TextDisplay* td;
   bool verify();
 public:
-  Board();
+  Board(TextDisplay* td);
   const ChessPiece* getChessPiece(int r, int c) const;
   void move(std::pair<int, int> start, std::pair<int, int> dest);
-  friend std::ostream& operator<<(std::ostream&, Board&); //temporary, to remove later
   void setup();
 };
 #endif
