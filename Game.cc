@@ -123,6 +123,8 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
   }
 
   turnColor = turnColor == Color::Black ? Color::White : Color::Black;
+
+  return true;
 }
 
 void Game::resign() {
