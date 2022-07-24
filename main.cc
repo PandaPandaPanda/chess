@@ -39,12 +39,14 @@ int main() {
       cin >> whiteType >> blackType;
       whitePlayer = createPlayer(whiteType); 
       blackPlayer = createPlayer(blackType); 
+      game.setPlayer(Color::Black, blackPlayer);
+      game.setPlayer(Color::White, whitePlayer);
     } else if (cmd == "resign") {
       game.resign();
     } else if (cmd == "move") {
       // game.move(); // todo, not sure how to do this
     } else if (cmd == "setup") {
-      game.setup(blackPlayer, whitePlayer);
+      game.setup();
     } else {
       cout << "Invalid command: " << cmd << endl;
     }

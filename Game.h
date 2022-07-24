@@ -16,12 +16,12 @@ class Game {
 
   bool canMove(std::pair<int, int> start, std::pair<int, int> dest);
   bool isCheckMate();
-  void setPlayer(Color c, Player *p);
   
 public:
   Game();
-  void setup(Player * blackPlayer, Player * whitePlayer);
+  void setup(); // enter board setup mode
   void resign();
+  void setPlayer(Color c, Player *p);
   bool move(std::pair<int, int> start, std::pair<int, int> dest);
   bool hasGameEnded();
 };

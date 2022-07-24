@@ -84,9 +84,8 @@ Game::Game()
       turnColor{Color::Black},
       endgame{false} {}
 
-void Game::setup(Player *blackPlayer, Player *whitePlayer) {
-  setPlayer(Color::Black, blackPlayer);
-  setPlayer(Color::White, whitePlayer);
+void Game::setup() {
+  b.setup();
 }
 
 void Game::setPlayer(Color c, Player *p) {
