@@ -2,6 +2,7 @@
 #define __Side_h__
 #include <vector>
 #include "Color.h"
+#include "Board.h"
 
 class Player;
 class ChessPiece;
@@ -11,14 +12,15 @@ class Team {
   double points;
   Color c;
   Player *p;
-  std::vector<ChessPiece *> pieces; // Place king at index 0
+  Board *b;
+  std::vector<const ChessPiece *> pieces; // Place king at index 0
 
 public:
-  Team(Color c);
+  Team(Color c, Board *b);
   const ChessPiece *getKing();
-  const std::vector<ChessPiece *> getPieces();
+  const std::vector<const ChessPiece *> getPieces();
   void setPlayer(Player *p);
-  void removePiece(ChessPiece *);
-  void promotePawn(Pawn *);
+  void removePiece(ChessPiece *cp);
+  void promotePawn(Pawn *cp, ChessType t);
 };
 #endif

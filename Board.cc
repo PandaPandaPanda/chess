@@ -154,6 +154,12 @@ Board::addPiece(Color pieceColor, char type, string pos)
 
   int r = position.first;
   int c = position.second;
+  addPiece(pieceColor, type, r, c);
+}
+
+void
+Board::addPiece(Color pieceColor, char type, int r, int c)
+{
   if (r == -1) {
     cout << "invalid coordinates" << endl;
     return;
@@ -184,10 +190,48 @@ Board::addPiece(Color pieceColor, char type, string pos)
 }
 
 void
+Board::addPiece(Color pieceColor, ChessType type, int r, int c)
+{
+  if (r == -1) {
+    cout << "invalid coordinates" << endl;
+    return;
+  }
+  switch (type) {
+    case ChessType::PAWN:
+      grid[r][c].setChessPiece(new Pawn{ pieceColor, r, c });
+      break;
+    case ChessType::ROOK:
+      grid[r][c].setChessPiece(new Rook{ pieceColor, r, c });
+      break;
+    case ChessType::KNIGHT:
+      grid[r][c].setChessPiece(new Knight{ pieceColor, r, c });
+      break;
+    case ChessType::BISHOP:
+      grid[r][c].setChessPiece(new Bishop{ pieceColor, r, c });
+      break;
+    case ChessType::QUEEN:
+      grid[r][c].setChessPiece(new Queen{ pieceColor, r, c });
+      break;
+    case ChessType::KING:
+      grid[r][c].setChessPiece(new King{ pieceColor, r, c });
+      break;
+    default:
+      cout << "invalid piece" << endl;
+      return;
+  }
+}
+
+void
+Board::removePiece(int r, int c)
+{
+  grid[r][c].setChessPiece(nullptr);
+}
+
+void
 Board::removePiece(string pos)
 {
   pair<int, int> position = stringToCoords(pos);
   int r = position.first;
   int c = position.second;
-  grid[r][c].setChessPiece(nullptr);
+  removePiece(r, c);
 }

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "Color.h"
+#include "ChessPiece.h"
 
 class Cell;
 class ChessPiece;
@@ -17,7 +18,10 @@ public:
   Board(TextDisplay* td);
   const ChessPiece* getChessPiece(int r, int c) const;
   void move(std::pair<int, int> start, std::pair<int, int> dest);
+  void addPiece(  Color pieceColor, char type, int r, int c);
+  void addPiece(  Color pieceColor, ChessType type, int r, int c);
   void addPiece(  Color pieceColor, char type, std::string pos);
+  void removePiece(int r, int c);
   void removePiece(std::string pos);
   bool verify();
 };
