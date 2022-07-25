@@ -41,6 +41,10 @@ parseMove(string move)
   int row = move[1] - '1'; // extra -1 converting number to index
   int col = move[0] - 'a';
 
+  if (row < 0 || row >= 8 || col < 0 || col >= 8) {
+    return { -1, -1 };
+  }
+
   return { row, col };
 }
 
@@ -70,6 +74,7 @@ main()
         start = parseMove(startStr);
         dest = parseMove(destStr);
         if (game.move(start, dest)) {
+          cout << game;
           break;
         }
         cout << "Invalid start/dest move" << endl;
