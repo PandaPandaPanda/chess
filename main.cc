@@ -38,7 +38,7 @@ parseMove(string move)
     return { -1, -1 };
   }
 
-  int row = move[1] - '1'; // extra -1 converting number to index
+  int row = 7 - (move[1] - '1'); // extra -1 converting number to index
   int col = move[0] - 'a';
 
   if (row < 0 || row >= 8 || col < 0 || col >= 8) {

@@ -36,8 +36,8 @@ void TextDisplay::notify(Cell &c) {
 }
 
 ostream &operator<<(ostream &out, const TextDisplay &td) {
-  for (int r = 7; r >= 0; r--) {
-    out << r + 1 << " "; // index to number
+  for (int r = 0; r < 8; ++r) {
+    out << 8 - r << " "; // index to number
     out << "|";
     for (auto& cell : td.theDisplay[r]) {
       out << cell;

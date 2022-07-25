@@ -45,13 +45,14 @@ bool Game::canMove(pair<int, int> start, pair<int, int> dest) {
   }
 
   // check legal move
-  for (auto possibleMove : startPiece->getPossibleMoves(b)) {
-    if (possibleMove.first == dest.first &&
-        possibleMove.second == dest.second) {
-      return true;
-    }
-  }
-  return false;
+  // for (auto possibleMove : startPiece->getPossibleMoves(b)) {
+  //   if (possibleMove.first == dest.first &&
+  //       possibleMove.second == dest.second) {
+  //     return true;
+  //   }
+  // }
+  // return false;
+  return true;
 }
 
 bool Game::isCheckMate() {
@@ -89,7 +90,7 @@ Game::Game()
       b{Board(t)},
       black{Team(Color::Black, &b)},
       white{Team(Color::White, &b)},
-      turnColor{Color::Black},
+      turnColor{Color::White},
       endgame{false} {}
 
 Game::~Game() { delete t; }

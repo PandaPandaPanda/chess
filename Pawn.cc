@@ -69,10 +69,13 @@ bool Pawn::canDoMove(const pair<int, int> dest, const Board &b) const {
   } else if (dest == doubleForwards && !moved()) {
     return b.getChessPiece(forwards.first, forwards.second) == nullptr && p == nullptr;
   } else if (dest == attack1 || dest == attack2) {
+    cout << "debug1: " << dest.first << " " << dest.second << endl;
     if (p == nullptr) { // can't attack nothing
+      cout << "debug2: nullptr" << endl;
       return false;
     } else {
       if (p->getColor() == myColor) { // can't attack own piece
+        cout << "debug3: same color" << endl;
         return false;
       } else { // ok
         return true;
