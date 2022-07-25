@@ -98,9 +98,7 @@ ChessType Pawn::type() const {
 }
 
 void Pawn::doMovePiece(const pair<int, int> dest) {
-  if (moved()) {
-    justDoubleAdvanced = false;
-  } else {
+  if (!moved()) {
     const pair<int, int> pos = getPosition();
     if (abs(dest.first - pos.first) == 2) {
       justDoubleAdvanced = true;
@@ -112,4 +110,8 @@ Pawn::Pawn(Color c, int row, int col): ChessPiece{c, row, col} {}
 
 bool Pawn::enPassantCapturable() {
   return justDoubleAdvanced;
+}
+
+void Pawn::invalidateEnPassantCapturable() {
+  justDoubleAdvanced = false;
 }
