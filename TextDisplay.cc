@@ -7,18 +7,18 @@ using namespace std;
 
 TextDisplay::TextDisplay() {
       theDisplay = vector<vector<string>>(8, vector<string>(8, " "));
-      emojiMap['P'][Color::Black] = "♟";
-      emojiMap['R'][Color::Black] = "♜";
-      emojiMap['N'][Color::Black] = "♞";
-      emojiMap['B'][Color::Black] = "♝";
-      emojiMap['Q'][Color::Black] = "♛";
-      emojiMap['K'][Color::Black] = "♚";
-      emojiMap['P'][Color::White] = "♙";
-      emojiMap['R'][Color::White] = "♖";
-      emojiMap['N'][Color::White] = "♘";
-      emojiMap['B'][Color::White] = "♗";
-      emojiMap['Q'][Color::White] = "♕";
-      emojiMap['K'][Color::White] = "♔";
+      emojiMap[ChessType::PAWN][Color::Black] = "♟";
+      emojiMap[ChessType::ROOK][Color::Black] = "♜";
+      emojiMap[ChessType::KNIGHT][Color::Black] = "♞";
+      emojiMap[ChessType::BISHOP][Color::Black] = "♝";
+      emojiMap[ChessType::QUEEN][Color::Black] = "♛";
+      emojiMap[ChessType::KING][Color::Black] = "♚";
+      emojiMap[ChessType::PAWN][Color::White] = "♙";
+      emojiMap[ChessType::ROOK][Color::White] = "♖";
+      emojiMap[ChessType::KNIGHT][Color::White] = "♘";
+      emojiMap[ChessType::BISHOP][Color::White] = "♗";
+      emojiMap[ChessType::QUEEN][Color::White] = "♕";
+      emojiMap[ChessType::KING][Color::White] = "♔";
 }
 
 TextDisplay::~TextDisplay() {

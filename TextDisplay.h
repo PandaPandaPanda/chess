@@ -2,6 +2,7 @@
 #define __TextDisplay_h__
 
 #include "Color.h"
+#include "ChessPiece.h"
 
 #include <iostream>
 #include <vector>
@@ -11,7 +12,7 @@ class Cell;
 
 class TextDisplay {
   std::vector<std::vector<std::string>> theDisplay;
-  std::unordered_map<char, std::unordered_map<Color, std::string>> emojiMap;
+  std::unordered_map<ChessType, std::unordered_map<Color, std::string>> emojiMap;
 
   //K = King
   //Q = Queen
