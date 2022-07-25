@@ -32,7 +32,6 @@ TextDisplay::notify(Cell& c)
 {
   int row = c.getRow();
   int col = c.getCol();
-  c.resetCell();
   if (c.getChessPiece()) {
     theDisplay[row][col] =
       emojiMap[c.getChessPiece()->getType()][c.getChessPiece()->getColor()] +
@@ -40,6 +39,8 @@ TextDisplay::notify(Cell& c)
   } else {
     theDisplay[row][col] = "  ";
   }
+  c.resetCell();
+  c.drawPiece();
 }
 
 ostream&

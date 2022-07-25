@@ -98,6 +98,18 @@ Game::Game()
   , turnColor{ Color::Black }
   , endgame{ false }
 {
+  scr->add_img("BP", "ChessPieces/BPawn.png");
+  scr->add_img("QP", "ChessPieces/WPawn.png");
+  scr->add_img("BB", "ChessPieces/BBishop.png");
+  scr->add_img("WB", "ChessPieces/WBishop.png");
+  scr->add_img("BN", "ChessPieces/BKnight.png");
+  scr->add_img("WN", "ChessPieces/WKnight.png");
+  scr->add_img("BR", "ChessPieces/BRook.png");
+  scr->add_img("WR", "ChessPieces/WRook.png");
+  scr->add_img("BQ", "ChessPieces/BQueen.png");
+  scr->add_img("WQ", "ChessPieces/WQueen.png");
+  scr->add_img("BK", "ChessPieces/BKing.png");
+  scr->add_img("WK", "ChessPieces/WKing.png");
 }
 
 Game::~Game()
