@@ -27,6 +27,7 @@ public:
   int getRow();
   int getCol();
   void setCoords(int r, int c, Screen* scr, int dimension, bool isWhiteCell);
+  void drawCell();
   void resetCell();
   void drawPiece();
 };

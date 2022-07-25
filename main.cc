@@ -80,7 +80,9 @@ main()
           cout << game;
           break;
         }
-        cout << "Invalid start/dest move" << endl;
+        cout << "Invalid start/dest move, please enter two valid coordinates "
+                "in form [a-h][1-8]"
+             << endl;
         cin >> startStr >> destStr;
       }
     } else if (cmd == "setup") {
