@@ -77,21 +77,24 @@ Cell::getCol()
 }
 
 void
-Cell::setCoords(int r, int c, Screen* scr, int dimension, bool isWhiteCell)
+Cell::setCoords(int r, int c, Screen* scr, int dimension)
 {
   this->r = r;
   this->c = c;
   this->scr = scr;
   this->dimension = dimension;
-  this->isWhiteCell = isWhiteCell;
 }
 
 void
-Cell::resetCell()
+Cell::draw()
 {
-  Colour colorToDraw =
-    isWhiteCell ? Colour{ '\xff', '\xff', '\xff' } : Colour{ 0x0, 0x0, 0x0 };
+  Colour white{ 255, 255, 255 };
+  scr->draw_rect(c * dimension, r * dimension, dimension, dimension, white);
+}
 
-  scr->draw_rect(
-    c * dimension, r * dimension, dimension, dimension, colorToDraw);
+void
+Cell::undraw()
+{
+  Colour black{ 0x0, 0x0, 0x0 };
+  scr->draw_rect(c * dimension, r * dimension, dimension, dimension, black);
 }

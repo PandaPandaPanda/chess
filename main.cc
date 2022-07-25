@@ -9,10 +9,13 @@
 #include "Game.h"
 #include "Human.h"
 #include "Player.h"
+#include "sdl_wrap.h"
 
 using namespace std;
 
 // where do we get the board and team from?
+SDL_Runner r;
+
 Player*
 createPlayer(string player)
 {
