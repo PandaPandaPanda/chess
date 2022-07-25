@@ -88,8 +88,8 @@ int Pawn::value() const {
   return 1;
 }
 
-char Pawn::type() const {
-  return 'P';
+ChessType Pawn::type() const {
+  return ChessType::PAWN;
 }
 
 Pawn::Pawn(Color c, int row, int col): ChessPiece{c, row, col} {}

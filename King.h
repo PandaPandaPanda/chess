@@ -11,7 +11,7 @@ class King : public ChessPiece {
   std::vector<std::pair<int, int>> possibleMoves(const Board &b) const override;
   bool canDoMove(const std::pair<int, int> dest, const Board &b) const override;
   int value() const override;
-  char type() const override;
+  ChessType type() const override;
 public:
   King(Color, int, int);
   bool inCheck(const Board &b) const;

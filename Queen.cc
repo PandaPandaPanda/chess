@@ -26,8 +26,8 @@ int Queen::value() const {
   return 9;
 }
 
-char Queen::type() const {
-  return 'Q';
+ChessType Queen::type() const {
+  return ChessType::QUEEN;
 }
 
 Queen::Queen(Color c, int row, int col): ChessPiece{c, row, col} {}

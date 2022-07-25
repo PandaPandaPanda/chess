@@ -72,8 +72,8 @@ int Rook::value() const {
   return 5;
 }
 
-char Rook::type() const {
-  return 'R';
+ChessType Rook::type() const {
+  return ChessType::ROOK;
 }
 
 Rook::Rook(Color c, int row, int col): ChessPiece{c, row, col} {}
