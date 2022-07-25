@@ -1,38 +1,46 @@
 #include "TextDisplay.h"
 #include "Cell.h"
 #include "ChessPiece.h"
-#include <vector>
 #include <iostream>
+#include <vector>
 using namespace std;
 
-TextDisplay::TextDisplay() {
-      theDisplay = vector<vector<string>>(8, vector<string>(8, " "));
-      emojiMap[ChessType::PAWN][Color::Black] = "♟";
-      emojiMap[ChessType::ROOK][Color::Black] = "♜";
-      emojiMap[ChessType::KNIGHT][Color::Black] = "♞";
-      emojiMap[ChessType::BISHOP][Color::Black] = "♝";
-      emojiMap[ChessType::QUEEN][Color::Black] = "♛";
-      emojiMap[ChessType::KING][Color::Black] = "♚";
-      emojiMap[ChessType::PAWN][Color::White] = "♙";
-      emojiMap[ChessType::ROOK][Color::White] = "♖";
-      emojiMap[ChessType::KNIGHT][Color::White] = "♘";
-      emojiMap[ChessType::BISHOP][Color::White] = "♗";
-      emojiMap[ChessType::QUEEN][Color::White] = "♕";
-      emojiMap[ChessType::KING][Color::White] = "♔";
+TextDisplay::TextDisplay()
+{
+  theDisplay = vector<vector<string>>(8, vector<string>(8, " "));
+  emojiMap[ChessType::PAWN][Color::Black] = "♟";
+  emojiMap[ChessType::ROOK][Color::Black] = "♜";
+  emojiMap[ChessType::KNIGHT][Color::Black] = "♞";
+  emojiMap[ChessType::BISHOP][Color::Black] = "♝";
+  emojiMap[ChessType::QUEEN][Color::Black] = "♛";
+  emojiMap[ChessType::KING][Color::Black] = "♚";
+  emojiMap[ChessType::PAWN][Color::White] = "♙";
+  emojiMap[ChessType::ROOK][Color::White] = "♖";
+  emojiMap[ChessType::KNIGHT][Color::White] = "♘";
+  emojiMap[ChessType::BISHOP][Color::White] = "♗";
+  emojiMap[ChessType::QUEEN][Color::White] = "♕";
+  emojiMap[ChessType::KING][Color::White] = "♔";
 }
 
-TextDisplay::~TextDisplay() {
+TextDisplay::~TextDisplay()
+{
   // todo
 }
 
-void TextDisplay::notify(Cell &c) {
+void
+TextDisplay::notify(Cell& c)
+{
   int row = c.getRow();
   int col = c.getCol();
   if (c.getChessPiece()) {
-    theDisplay[row][col] = emojiMap[c.getChessPiece()->getType()][c.getChessPiece()->getColor()] + " ";
+    theDisplay[row][col] =
+      emojiMap[c.getChessPiece()->getType()][c.getChessPiece()->getColor()] +
+      " ";
   } else {
     theDisplay[row][col] = "  ";
   }
+  c.resetCell();
+  c.drawPiece();
 }
 
 ostream &operator<<(ostream &out, const TextDisplay &td) {

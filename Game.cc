@@ -11,13 +11,16 @@
 #include "Exception.h"
 #include "Player.h"
 #include "Team.h"
+#include "sdl_wrap.h"
 
 using namespace std;
 
 const int BOARDSIZE = 8;
 
 // pair<row, col>
-bool Game::canMove(pair<int, int> start, pair<int, int> dest) {
+bool
+Game::canMove(pair<int, int> start, pair<int, int> dest)
+{
   const ChessPiece* startPiece = b.getChessPiece(start.first, start.second);
   // isValid start&end
   if (start.first < 0 || start.second >= BOARDSIZE || dest.first < 0 ||
@@ -55,12 +58,14 @@ bool Game::canMove(pair<int, int> start, pair<int, int> dest) {
   return true;
 }
 
-bool Game::isCheckMate() {
+bool
+Game::isCheckMate()
+{
   Team* curTeam = turnColor == Color::Black ? &black : &white;
   Team* oppTeam = turnColor == Color::Black ? &white : &black;
   curTeam->getKing();
   vector<pair<int, int>> kingPossibleMoves =
-      curTeam->getKing()->getPossibleMoves(b);
+    curTeam->getKing()->getPossibleMoves(b);
   for (int i = kingPossibleMoves.size() - 1; i >= 0; i--) {
     bool badMove = false;
     for (const ChessPiece* oppPiece : oppTeam->getPieces()) {
@@ -86,16 +91,37 @@ bool Game::isCheckMate() {
 }
 
 Game::Game()
-    : t{new TextDisplay()},
-      b{Board(t)},
-      black{Team(Color::Black, &b)},
-      white{Team(Color::White, &b)},
-      turnColor{Color::White},
-      endgame{false} {}
+  : t{ new TextDisplay() }
+  , scr{ new Screen{ 640, 640 } }
+  , b{ Board(t, scr) }
+  , black{ Team(Color::Black, &b) }
+  , white{ Team(Color::White, &b) }
+  , turnColor{ Color::White }
+  , endgame{ false }
+{
+  scr->add_img("BP", "ChessPieces/BPawn.png");
+  scr->add_img("QP", "ChessPieces/WPawn.png");
+  scr->add_img("BB", "ChessPieces/BBishop.png");
+  scr->add_img("WB", "ChessPieces/WBishop.png");
+  scr->add_img("BN", "ChessPieces/BKnight.png");
+  scr->add_img("WN", "ChessPieces/WKnight.png");
+  scr->add_img("BR", "ChessPieces/BRook.png");
+  scr->add_img("WR", "ChessPieces/WRook.png");
+  scr->add_img("BQ", "ChessPieces/BQueen.png");
+  scr->add_img("WQ", "ChessPieces/WQueen.png");
+  scr->add_img("BK", "ChessPieces/BKing.png");
+  scr->add_img("WK", "ChessPieces/WKing.png");
+}
 
-Game::~Game() { delete t; }
+Game::~Game()
+{
+  delete t;
+  delete scr;
+}
 
-pair<bool, Color> Game::strToColor(string color) {
+pair<bool, Color>
+Game::strToColor(string color)
+{
   Color output = Color::White;
   if (color == "Black" || color == "black" || color == "b" || color == "B") {
     output = Color::Black;
@@ -109,7 +135,9 @@ pair<bool, Color> Game::strToColor(string color) {
   return make_pair(true, output);
 }
 
-void Game::setup() {
+void
+Game::setup()
+{
   string cmd;
   while (true) {
     cin >> cmd;
@@ -161,7 +189,9 @@ void Game::setup() {
   }
 }
 
-void Game::setPlayer(Color c, Player* p) {
+void
+Game::setPlayer(Color c, Player* p)
+{
   Team* homeTeam;
   if (c == Color::Black) {
     homeTeam = &black;
@@ -182,7 +212,9 @@ void Game::setPlayer(Color c, Player* p) {
   }
 }
 
-bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
+bool
+Game::move(std::pair<int, int> start, std::pair<int, int> dest)
+{
   if (!canMove(start, dest)) {
     return false;
   }
@@ -191,7 +223,7 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
 
   if (isCheckMate()) {
     endgame = true;
-    winner = turnColor;  // player wins
+    winner = turnColor; // player wins
   }
 
   turnColor = turnColor == Color::Black ? Color::White : Color::Black;
@@ -199,14 +231,23 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
   return true;
 }
 
-void Game::resign() {
+void
+Game::resign()
+{
   endgame = true;
   winner =
-      turnColor == Color::Black ? Color::White : Color::Black;  // opponent wins
+    turnColor == Color::Black ? Color::White : Color::Black; // opponent wins
 }
-ostream& operator<<(std::ostream& o, Game& g) {
+ostream&
+operator<<(std::ostream& o, Game& g)
+{
   o << *g.t;
+  g.scr->update();
   return o;
 };
 
-bool Game::hasGameEnded() { return endgame; }
+bool
+Game::hasGameEnded()
+{
+  return endgame;
+}

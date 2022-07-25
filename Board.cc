@@ -8,6 +8,7 @@
 #include "Queen.h"
 #include "Rook.h"
 #include "TextDisplay.h"
+#include "sdl_wrap.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -68,8 +69,9 @@ Board::verify()
   return true;
 }
 
-Board::Board(TextDisplay* td)
+Board::Board(TextDisplay* td, Screen* scr)
   : td{ td }
+  , scr{ scr }
 {
   const Color b = Color::Black;
   const Color w = Color::White;
@@ -110,11 +112,14 @@ Board::Board(TextDisplay* td)
              { new Bishop{ w, 7, 5 } },
              { new Knight{ w, 7, 6 } },
              { new Rook{ w, 7, 7 } } } };
+  bool isWhiteCell = true;
   for (int i = 0; i < 8; ++i) {
+    isWhiteCell = !isWhiteCell;
     for (int j = 0; j < 8; ++j) {
-      grid[i][j].setCoords(i, j);
+      grid[i][j].setCoords(i, j, scr, 80, isWhiteCell);
       grid[i][j].attach(td);
       grid[i][j].notifyTextObserver();
+      isWhiteCell = !isWhiteCell;
     }
   }
 }

@@ -5,24 +5,29 @@
 class Board;
 class ChessPiece;
 class TextDisplay;
-
-class Cell {
-  ChessPiece *p;
-  TextDisplay *td;
+class Screen;
+class Cell
+{
+  ChessPiece* p;
+  TextDisplay* td;
+  Screen* scr;
   int r, c;
+  int dimension;
+  bool isWhiteCell;
 
 public:
   Cell();
-  Cell(ChessPiece *);
-  void setChessPiece(ChessPiece *p);
-  const ChessPiece *getChessPiece() const;
-  bool canMove(const std::pair<int, int>, const Board &);
-  void movePieceTo(Cell &);
-  void attach(TextDisplay *); // attach observer
+  Cell(ChessPiece*);
+  void setChessPiece(ChessPiece* p);
+  const ChessPiece* getChessPiece() const;
+  bool canMove(const std::pair<int, int>, const Board&);
+  void movePieceTo(Cell&);
+  void attach(TextDisplay*); // attach observer
   void notifyTextObserver();
   int getRow();
   int getCol();
-  void setCoords(int r, int c);
-  friend std::ostream& operator<<(std::ostream&, Cell&); //temporary, to remove later
+  void setCoords(int r, int c, Screen* scr, int dimension, bool isWhiteCell);
+  void resetCell();
+  void drawPiece();
 };
 #endif

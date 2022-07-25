@@ -1,6 +1,7 @@
 #include "Cell.h"
 #include "ChessPiece.h"
 #include "TextDisplay.h"
+#include "sdl_wrap.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -76,19 +77,57 @@ Cell::getCol()
 }
 
 void
-Cell::setCoords(int r, int c)
+Cell::setCoords(int r, int c, Screen* scr, int dimension, bool isWhiteCell)
 {
   this->r = r;
   this->c = c;
+  this->scr = scr;
+  this->dimension = dimension;
+  this->isWhiteCell = isWhiteCell;
 }
 
-ostream&
-operator<<(ostream& o, Cell& c)
+void
+Cell::resetCell()
 {
-  if (!c.p) {
-    o << ' ';
-  } else {
-    o << c.p->getType();
+  Colour colorToDraw =
+    isWhiteCell ? Colour{ '\xff', '\xff', '\xff' } : Colour{ 0x0, 0x0, 0x0 };
+
+  scr->draw_rect(
+    c * dimension, r * dimension, dimension, dimension, colorToDraw);
+}
+
+void
+Cell::drawPiece()
+{
+  string toDraw;
+
+  if (p) {
+    if (p->getColor() == Color::Black) {
+      toDraw += 'B';
+    } else {
+      toDraw += 'W';
+    }
+    switch (p->getType()) {
+      case ChessType::PAWN:
+        toDraw += 'P';
+        break;
+      case ChessType::ROOK:
+        toDraw += 'R';
+        break;
+      case ChessType::KNIGHT:
+        toDraw += 'N';
+        break;
+      case ChessType::BISHOP:
+        toDraw += 'B';
+        break;
+      case ChessType::QUEEN:
+        toDraw += 'Q';
+        break;
+      case ChessType::KING:
+        toDraw += 'K';
+        break;
+    }
+
+    scr->draw_img(toDraw, c * dimension + 10, r * dimension + 10);
   }
-  return o;
-};
+}
