@@ -31,15 +31,17 @@ vector<pair<int, int>> King::possibleMoves(const Board &b) const {
   const pair<int, int> myPos = getPosition();
   for (const auto &v : moveVectors) {
     const pair<int, int> pos = {myPos.first + v.first, myPos.second + v.second};
-    const ChessPiece *p = b.getChessPiece(pos.first, pos.second);
-    if (p == nullptr && !enemyCanAttack(pos, b)) {
-      moves.emplace_back(pos);
-    } else {
-      if (p->getColor() != myColor) { // attacking own piece
-        // technically not correct, we would need to check if taking this piece
-        // would put king in check (todo)
-        // ChessPiece::canMove is not sufficient, we need ChessPiece::defending
+    if (inBounds(pos)) {
+      const ChessPiece *p = b.getChessPiece(pos.first, pos.second);
+      if (p == nullptr && !enemyCanAttack(pos, b)) {
         moves.emplace_back(pos);
+      } else {
+        if (p->getColor() != myColor) { // attacking own piece
+          // technically not correct, we would need to check if taking this piece
+          // would put king in check (todo)
+          // ChessPiece::canMove is not sufficient, we need ChessPiece::defending
+          moves.emplace_back(pos);
+        }
       }
     }
   }
