@@ -49,4 +49,8 @@ ChessType Knight::type() const {
   return ChessType::KNIGHT;
 }
 
+void Knight::doMovePiece(const pair<int, int> newPos) {
+  // no op
+}
+
 Knight::Knight(Color c, int row, int col): ChessPiece{c, row, col} {}

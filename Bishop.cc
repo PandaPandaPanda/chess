@@ -67,4 +67,8 @@ ChessType Bishop::type() const {
   return ChessType::BISHOP;
 }
 
+void Bishop::doMovePiece(const pair<int, int> newPos) {
+  // no op
+}
+
 Bishop::Bishop(Color c, int row, int col): ChessPiece{c, row, col} {}

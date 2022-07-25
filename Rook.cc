@@ -76,4 +76,8 @@ ChessType Rook::type() const {
   return ChessType::ROOK;
 }
 
+void Rook::doMovePiece(const pair<int, int> newPos) {
+  // no op
+}
+
 Rook::Rook(Color c, int row, int col): ChessPiece{c, row, col} {}

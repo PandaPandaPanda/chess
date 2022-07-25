@@ -81,6 +81,10 @@ int King::value() const {
 ChessType King::type() const {
   return ChessType::KING;
 }
+  
+void King::doMovePiece(const pair<int, int> newPos) {
+  // no op
+}
 
 King::King(Color c, int row, int col): ChessPiece{c, row, col} {}
 

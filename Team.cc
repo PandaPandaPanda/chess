@@ -31,7 +31,10 @@ const vector<const ChessPiece *> Team::getPieces() { return pieces; }
 
 void Team::setPlayer(Player *p) { this->p = p; }
 
-void Team::removePiece(ChessPiece *cp) {
+void Team::removePiece(const ChessPiece *cp) {
+  if (cp == nullptr) {
+    return;
+  }
   for (int i = 0; i < (int)pieces.size(); i++) {
     if (pieces[i]->getType() == cp->getType() &&
         pieces[i]->getPosition() == cp->getPosition()) {

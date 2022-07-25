@@ -30,4 +30,8 @@ ChessType Queen::type() const {
   return ChessType::QUEEN;
 }
 
+void Queen::doMovePiece(const pair<int, int> newPos) {
+  // no op
+}
+
 Queen::Queen(Color c, int row, int col): ChessPiece{c, row, col} {}

@@ -63,12 +63,16 @@ Game::isCheckMate()
 {
   Team* curTeam = turnColor == Color::Black ? &black : &white;
   Team* oppTeam = turnColor == Color::Black ? &white : &black;
-  curTeam->getKing();
   vector<pair<int, int>> kingPossibleMoves =
     curTeam->getKing()->getPossibleMoves(b);
+  cout << "debug3.1" << endl;
   for (int i = kingPossibleMoves.size() - 1; i >= 0; i--) {
+    cout << "debug3.1: " << i << endl;
     bool badMove = false;
     for (const ChessPiece* oppPiece : oppTeam->getPieces()) {
+      if (oppPiece == nullptr) {
+        cout << "debug3.1.1" << endl;
+      }
       for (pair<int, int> oppPossibleMoves : oppPiece->getPossibleMoves(b)) {
         if (oppPossibleMoves == kingPossibleMoves[i]) {
           badMove = true;
@@ -86,6 +90,7 @@ Game::isCheckMate()
       return false;
     }
   }
+  cout << "debug3.2" << endl;
 
   return true;
 }
@@ -217,6 +222,17 @@ Game::move(std::pair<int, int> start, std::pair<int, int> dest)
 {
   if (!canMove(start, dest)) {
     return false;
+  }
+
+  if (!b.getChessPiece(start.first, start.second)->canMove(dest, b)) {
+    return false;
+  }
+
+  const ChessPiece *p = b.getChessPiece(dest.first, dest.second);
+  if (turnColor == Color::White) {
+    black.removePiece(p);
+  } else {
+    white.removePiece(p);
   }
 
   b.move(start, dest);

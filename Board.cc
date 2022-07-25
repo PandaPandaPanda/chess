@@ -133,11 +133,7 @@ Board::getChessPiece(int r, int c) const
 void
 Board::move(std::pair<int, int> start, std::pair<int, int> dest)
 {
-  if (grid[start.first][start.second].canMove(dest, *this)) {
-    grid[start.first][start.second].movePieceTo(grid[dest.first][dest.second]);
-  } else {
-    cout << "Cannot place piece here";
-  }
+  grid[start.first][start.second].movePieceTo(grid[dest.first][dest.second]);
 }
 
 pair<int, int>

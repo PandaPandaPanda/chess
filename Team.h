@@ -20,7 +20,7 @@ public:
   const ChessPiece *getKing();
   const std::vector<const ChessPiece *> getPieces();
   void setPlayer(Player *p);
-  void removePiece(ChessPiece *cp);
+  void removePiece(const ChessPiece *cp);
   void promotePawn(Pawn *cp, ChessType t);
 };
 #endif

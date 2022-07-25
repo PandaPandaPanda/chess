@@ -36,17 +36,21 @@ vector<pair<int, int>> Pawn::possibleMoves(const Board &b) const {
   }
   if (inBounds(attack1)) {
     const ChessPiece *p = b.getChessPiece(attack1.first, attack1.second);
-    if (p != nullptr && p->getColor() != myColor) {
-      moves.emplace_back(attack2);
+    const ChessPiece *q = b.getChessPiece(myPos.first, attack1.second); // en passant?
+    if (q != nullptr && q->getType() == ChessType::PAWN && q->getColor() != myColor && ((Pawn *)q)->enPassantCapturable()) {
+      moves.emplace_back(attack1);
+    } else if (p != nullptr && p->getColor() != myColor) {
+      moves.emplace_back(attack1);
     }
-    // todo en passant
   }
   if (inBounds(attack2)) {
     const ChessPiece *p = b.getChessPiece(attack2.first, attack2.second);
-    if (p != nullptr && p->getColor() != myColor) {
+    const ChessPiece *q = b.getChessPiece(myPos.first, attack2.second); // en passant?
+    if (q != nullptr && q->getType() == ChessType::PAWN && q->getColor() != myColor && ((Pawn *)q)->enPassantCapturable()) {
+      moves.emplace_back(attack2);
+    } else if (p != nullptr && p->getColor() != myColor) {
       moves.emplace_back(attack2);
     }
-    // todo en passant
   }
   return moves;
 }
@@ -69,7 +73,10 @@ bool Pawn::canDoMove(const pair<int, int> dest, const Board &b) const {
   } else if (dest == doubleForwards && !moved()) {
     return b.getChessPiece(forwards.first, forwards.second) == nullptr && p == nullptr;
   } else if (dest == attack1 || dest == attack2) {
-    if (p == nullptr) { // can't attack nothing
+    const ChessPiece *q = b.getChessPiece(myPos.first, dest.second);
+    if (q != nullptr && q->getType() == ChessType::PAWN && q->getColor() != myColor && ((Pawn *)q)->enPassantCapturable()) {
+      return true; // en passant
+    } else if (p == nullptr) { // can't attack nothing
       return false;
     } else {
       if (p->getColor() == myColor) { // can't attack own piece
@@ -78,8 +85,6 @@ bool Pawn::canDoMove(const pair<int, int> dest, const Board &b) const {
         return true;
       }
     }
-  } else {
-    // todo en passant
   }
   return false; // invalid, dest can only be forwards, attack1, or attack2
 }
@@ -92,4 +97,19 @@ ChessType Pawn::type() const {
   return ChessType::PAWN;
 }
 
+void Pawn::doMovePiece(const pair<int, int> dest) {
+  if (moved()) {
+    justDoubleAdvanced = false;
+  } else {
+    const pair<int, int> pos = getPosition();
+    if (abs(dest.first - pos.first) == 2) {
+      justDoubleAdvanced = true;
+    }
+  }
+}
+
 Pawn::Pawn(Color c, int row, int col): ChessPiece{c, row, col} {}
+
+bool Pawn::enPassantCapturable() {
+  return justDoubleAdvanced;
+}

@@ -62,6 +62,7 @@ ChessType ChessPiece::getType() const {
 }
 
 void ChessPiece::movePiece(const pair<int, int> newPos) {
+  doMovePiece(newPos);
   row = newPos.first;
   col = newPos.second;
   hasMoved = true;

@@ -23,6 +23,7 @@ class ChessPiece {
   virtual bool canDoMove(const std::pair<int, int> dest, const Board &b) const = 0;
   virtual int value() const = 0;
   virtual ChessType type() const = 0;
+  virtual void doMovePiece(const std::pair<int, int>) = 0;
 protected:
   ChessPiece(Color, int, int);
   void possibleMovesDirection(const Board &b, int dr, int dc, std::vector<std::pair<int, int>> &moves) const;
