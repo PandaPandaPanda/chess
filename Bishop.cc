@@ -63,8 +63,8 @@ int Bishop::value() const {
   return 3;
 }
 
-char Bishop::type() const {
-  return 'B';
+ChessType Bishop::type() const {
+  return ChessType::BISHOP;
 }
 
 Bishop::Bishop(Color c, int row, int col): ChessPiece{c, row, col} {}

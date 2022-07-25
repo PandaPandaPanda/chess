@@ -22,7 +22,7 @@ class ChessPiece {
   virtual std::vector<std::pair<int, int>> possibleMoves(const Board &b) const = 0;
   virtual bool canDoMove(const std::pair<int, int> dest, const Board &b) const = 0;
   virtual int value() const = 0;
-  virtual char type() const = 0;
+  virtual ChessType type() const = 0;
 protected:
   ChessPiece(Color, int, int);
   void possibleMovesDirection(const Board &b, int dr, int dc, std::vector<std::pair<int, int>> &moves) const;
@@ -34,7 +34,7 @@ public:
   std::vector<std::pair<int, int>> getPossibleMoves(const Board &b) const;
   bool canMove(const std::pair<int, int> dest, const Board &b) const;
   int getValue() const;
-  char getType() const;
+  ChessType getType() const;
   void movePiece(const std::pair<int,int>); // update row and col upon chess piece moved
   virtual ~ChessPiece();
   static bool inBounds(int, int);

@@ -57,7 +57,7 @@ int ChessPiece::getValue() const {
   return value();
 }
 
-char ChessPiece::getType() const {
+ChessType ChessPiece::getType() const {
   return type();
 }
 

@@ -78,8 +78,8 @@ int King::value() const {
   return 999;
 }
 
-char King::type() const {
-  return 'K';
+ChessType King::type() const {
+  return ChessType::KING;
 }
 
 King::King(Color c, int row, int col): ChessPiece{c, row, col} {}

@@ -45,8 +45,8 @@ int Knight::value() const {
   return 3;
 }
 
-char Knight::type() const {
-  return 'N';
+ChessType Knight::type() const {
+  return ChessType::KNIGHT;
 }
 
 Knight::Knight(Color c, int row, int col): ChessPiece{c, row, col} {}
