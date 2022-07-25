@@ -68,14 +68,30 @@ Board::verify()
   }
   return true;
 }
+void
+Board::loadAllChessPieces()
+{
+  scr->add_img("BP", "ChessPieces/BPawn.png");
+  scr->add_img("WP", "ChessPieces/WPawn.png");
+  scr->add_img("BB", "ChessPieces/BBishop.png");
+  scr->add_img("WB", "ChessPieces/WBishop.png");
+  scr->add_img("BN", "ChessPieces/BKnight.png");
+  scr->add_img("WN", "ChessPieces/WKnight.png");
+  scr->add_img("BR", "ChessPieces/BRook.png");
+  scr->add_img("WR", "ChessPieces/WRook.png");
+  scr->add_img("BQ", "ChessPieces/BQueen.png");
+  scr->add_img("WQ", "ChessPieces/WQueen.png");
+  scr->add_img("BK", "ChessPieces/BKing.png");
+  scr->add_img("WK", "ChessPieces/WKing.png");
+}
 
 Board::Board(TextDisplay* td, Screen* scr)
   : td{ td }
   , scr{ scr }
 {
+
   const Color b = Color::Black;
   const Color w = Color::White;
-  // grid = vector<vector<Cell>>(8, vector<Cell>(8, Cell()));
   grid = { { { new Rook{ b, 0, 0 } },
              { new Knight{ b, 0, 1 } },
              { new Bishop{ b, 0, 2 } },
@@ -112,12 +128,14 @@ Board::Board(TextDisplay* td, Screen* scr)
              { new Bishop{ w, 7, 5 } },
              { new Knight{ w, 7, 6 } },
              { new Rook{ w, 7, 7 } } } };
+  loadAllChessPieces();
   bool isWhiteCell = true;
   for (int i = 0; i < 8; ++i) {
     isWhiteCell = !isWhiteCell;
     for (int j = 0; j < 8; ++j) {
       grid[i][j].setCoords(i, j, scr, 80, isWhiteCell);
       grid[i][j].attach(td);
+      grid[i][j].drawCell();
       grid[i][j].notifyTextObserver();
       isWhiteCell = !isWhiteCell;
     }
