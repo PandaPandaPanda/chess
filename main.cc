@@ -13,7 +13,9 @@
 using namespace std;
 
 // where do we get the board and team from?
-Player *createPlayer(string player) {
+Player*
+createPlayer(string player)
+{
   if (player == "human") {
     return new Human{};
   } else if (player == "computer1") {
@@ -29,23 +31,27 @@ Player *createPlayer(string player) {
   }
 }
 
-pair<int, int> parseMove(string move) {
+pair<int, int>
+parseMove(string move)
+{
   if (move.size() != 2) {
-    return {-1, -1};
+    return { -1, -1 };
   }
 
-  int row = (char)move[1] - 48 - 1; // extra -1 converting number to index
-  int col = (char)move[0] - 97;
+  int row = move[1] - '1'; // extra -1 converting number to index
+  int col = move[0] - 'a';
 
-  return {row, col};
+  return { row, col };
 }
 
-int main() {
+int
+main()
+{
   string cmd;
   Game game;
-  Player *whitePlayer;
-  Player *blackPlayer;
-  cout << game;  // print out board is working
+  Player* whitePlayer;
+  Player* blackPlayer;
+  cout << game; // print out board is working
   while (cin >> cmd) {
     if (cmd == "game") {
       string whiteType, blackType;
@@ -59,8 +65,8 @@ int main() {
     } else if (cmd == "move") {
       string startStr, destStr;
       pair<int, int> start, dest;
-      while (true) {
-        cin >> startStr >> destStr;
+      cin >> startStr >> destStr;
+      while (cin) {
         start = parseMove(startStr);
         dest = parseMove(destStr);
         if (game.move(start, dest)) {
