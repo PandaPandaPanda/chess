@@ -3,7 +3,9 @@
 #include "Board.h"
 #include "Team.h"
 
-std::pair<std::pair<int, int>, std::pair<int, int>> Computer4::doGetMove() {
+using namespace std;
+
+pair<pair<int, int>, pair<int, int>> Computer4::doGetMove() {
   return {{}, {}};
 }
 
@@ -17,4 +19,8 @@ Computer4::Computer4() {
 
 Computer4::~Computer4() {
   // todo
+}
+
+pair<pair<int, int>, pair<int, int>> Computer4::getMove() {
+  return doGetMove();
 }

@@ -35,3 +35,7 @@ void Computer1::doSetup(Board *b, Team *homeTeam, Team* oppTeam) {
 
 Computer1::Computer1() {
 }
+
+pair<pair<int, int>, pair<int, int>> Computer1::getMove() {
+  return Computer1::doGetMove();
+}

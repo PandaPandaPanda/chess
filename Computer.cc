@@ -14,7 +14,6 @@ void Computer::doPlay(Game *g) {
 
     cout << "move from " << (char)(move.first.second + 'a') << (char)(8 - move.first.first + '0') << " to " << (char)(move.second.second + 'a') << (char)(8 - move.second.first + '0') << endl;
     g->move(move.first, move.second);
-    cout << "debug 14" << endl;
     cout << *g;
 }
 

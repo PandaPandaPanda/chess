@@ -59,7 +59,7 @@ main()
   Player* whitePlayer = nullptr;
   Player* blackPlayer = nullptr;
   while (!cin.eof()) {
-    if (game) {
+    if (game && !(game->hasGameEnded())) {
       if (game->getTurnColor() == Color::White && whitePlayer->getType() == PlayerType::C) {
         whitePlayer->play(game);
         continue;
@@ -69,6 +69,11 @@ main()
         continue;
       }
     }
+
+    if (game && game->hasGameEnded()) {
+      cout << (game->getWinner() == 'W' ? "White" : "Black") << " won" << endl;
+    }
+
     cin >> cmd;
     if (!game && cmd != "game" ) {
       cout << "Game has not been initialized" << cmd << endl;

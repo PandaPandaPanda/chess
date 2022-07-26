@@ -6,12 +6,12 @@ class Board;
 class Team;
 
 class Computer2 : public Computer1 {
-    void doSetup(Board *b, Team *homeTeam, Team* oppTeam) override;
-
    protected:
+   void doSetup(Board *b, Team *homeTeam, Team* oppTeam) override;
     virtual std::pair<std::pair<int, int>, std::pair<int, int>> doGetMove() override;
 
    public:
     Computer2();
+    std::pair<std::pair<int, int>, std::pair<int, int>> getMove();
 };
 #endif

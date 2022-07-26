@@ -6,7 +6,7 @@
 using namespace std;
 
 vector<pair<int, int>> Bishop::possibleMoves(const Board &b) const {
-  vector<pair<int, int>> moves;
+  vector<pair<int, int>> moves{};
 
   // check all four diagonal directions
   // NE

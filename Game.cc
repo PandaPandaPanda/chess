@@ -218,6 +218,10 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
 
     const ChessPiece* p = b.getChessPiece(dest.first, dest.second);
     if (p) {  // normal capturing
+        if (p->getType() == ChessType::KING) {
+            endgame = true;
+            return true;
+        }
         if (turnColor == Color::White) {
             black.removePiece(p);
         } else {
@@ -278,9 +282,11 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
     }
 
     if (isCheckMate()) {
+        cout << "debug checkmate" << endl;
         endgame = true;
         winner = turnColor;  // player wins
     }
+     cout << "debug NOT checkmate" << endl;
 
     if (isStaleMate()) {
         endgame = true;
@@ -318,3 +324,8 @@ int Game::getSteps() {
 Color Game::getTurnColor() {
     return turnColor;
 }
+
+Color Game::getWinner() {
+    return winner;
+}
+

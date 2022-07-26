@@ -14,5 +14,6 @@ class Computer4 : public Computer3 {
    public:
     Computer4();
     ~Computer4();
+    std::pair<std::pair<int, int>, std::pair<int, int>> getMove();
 };
 #endif

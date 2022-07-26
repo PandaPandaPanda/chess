@@ -8,16 +8,24 @@ using namespace std;
 
 pair<pair<int, int>, pair<int, int>> Computer3::doGetMove() {
     // think like ur enemy
+    cout << "debug 30" << endl;
     pair<pair<int, int>, pair<int, int>> move = c2.getMove();
 
     cout << "debug 31" << endl;
     pair<int, int> oppStart = move.first;
     pair<int, int> oppDest = move.second;
 
+    if (!homeTeam) {
+        cout << "debug hometeam empty" << endl;
+    }
+    if (!oppTeam) {
+        cout << "debug oppTeam empty" << endl;
+    }
+
     if (b->getChessPiece(oppDest.first, oppDest.second) &&
         b->getChessPiece(oppDest.first, oppDest.second)->getColor() == homeTeam->getColor()) {
         // try to escape
-
+cout << "debug 32" << endl;
         vector<vector<bool>> table(8, vector<bool>(8, false));
         for (int i = 0; i < (int)oppTeam->getPieces().size(); i++) {
             for (int j = 0; j < (int)oppTeam->getPieces().at(i)->getPossibleMoves(*b).size(); j++) {
@@ -25,7 +33,7 @@ pair<pair<int, int>, pair<int, int>> Computer3::doGetMove() {
                 table[enemyMove.first][enemyMove.second] = true;
             }
         }
-
+cout << "debug 33" << endl;
         const ChessPiece * myPiece = b->getChessPiece(oppDest.first, oppDest.second);
         for (int i = 0; i < (int)myPiece->getPossibleMoves(*b).size() ; i++) {
             pair<int, int> myMove =  myPiece->getPossibleMoves(*b)[i];
@@ -34,8 +42,8 @@ pair<pair<int, int>, pair<int, int>> Computer3::doGetMove() {
             }
         }
     }
-
-    return Computer2::doGetMove();
+cout << "debug 34" << endl;
+    return Computer2::getMove();
 }
 
 void Computer3::doSetup(Board *b, Team *homeTeam, Team *oppTeam) {
@@ -43,8 +51,14 @@ void Computer3::doSetup(Board *b, Team *homeTeam, Team *oppTeam) {
     this->homeTeam = homeTeam;
     this->oppTeam = oppTeam;
     c2.setup(b, oppTeam, homeTeam);
+    Computer2::doSetup(b, homeTeam, oppTeam);
 }
 
 Computer3::Computer3() : c2{Computer2{}} {}
 
 Computer3::~Computer3() {}
+
+pair<pair<int, int>, pair<int, int>> Computer3::getMove() {
+  return Computer3::doGetMove();
+}
+
