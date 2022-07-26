@@ -18,6 +18,7 @@ pair<pair<int, int>, pair<int, int>> Computer2::doGetMove() {
 
     cout << "debug 22" << endl;
 
+    // prefer capturing
     vector<vector<bool>> enemyPos(8, vector<bool>(8, false));
     for (int i = 0; i < (int)oppTeam->getPieces().size(); i++) {
         pair<int, int> pos = oppTeam->getPieces().at(i)->getPosition();
@@ -47,6 +48,21 @@ cout << "debug 27" << endl;
     }
 
     cout << "debug 29" << endl;
+
+    // prefer checking
+    for (int i = 0; i < (int)homeTeam->getPieces().size(); i++) {
+        const ChessPiece *myPiece = homeTeam->getPieces().at(i);
+        for (int i = 0; i < (int)myPiece->getPossibleMoves(*b).size(); i++) {
+            pair<int, int> myMove = myPiece->getPossibleMoves(*b)[i];
+
+            if (b->checkInCheck(myMove, oppTeam->getKing()->getPosition())) {
+                return {myPiece->getPosition(), myMove};
+            }
+            cout << "debug 30" << endl;
+        }
+    }
+
+    cout << "debug 31" << endl;
     return Computer1::getMove();
 }
 
