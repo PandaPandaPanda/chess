@@ -46,7 +46,8 @@ Board::verify()
           cell.getChessPiece()->getType() == ChessType::PAWN) {
         return false;
       }
-      if (cell.getChessPiece() && cell.getChessPiece()->getType() == ChessType::KING) {
+      if (cell.getChessPiece() &&
+          cell.getChessPiece()->getType() == ChessType::KING) {
 
         if (cell.getChessPiece()->getColor() == Color::White) {
           ++wKing;
@@ -138,6 +139,15 @@ Board::Board(TextDisplay* td, Screen* scr)
       grid[i][j].drawCell();
       grid[i][j].notifyTextObserver();
       isWhiteCell = !isWhiteCell;
+    }
+  }
+}
+
+Board::~Board()
+{
+  for (int i = 0; i < 8; ++i) {
+    for (int j = 0; j < 8; ++j) {
+      delete grid[i][j].getChessPiece();
     }
   }
 }
