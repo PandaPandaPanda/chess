@@ -11,21 +11,21 @@ using namespace std;
 
 void Computer1::doPlay(Game *g) {
   const ChessPiece *cp = nullptr;
-
+cout << "debug 11" << endl;
   do {
     cp = t->getPieces().at(getRandomNum(t->getPieces().size()-1));
   } while(cp->getPossibleMoves(*b).size() <= 0);
-
+cout << "debug 12" << endl;
   pair<int, int> move;
   if (cp->getPossibleMoves(*b).size() == 1) {
     move = cp->getPossibleMoves(*b)[0];
   } else {
     move = cp->getPossibleMoves(*b).at(getRandomNum(cp->getPossibleMoves(*b).size()-1));
   }
-  
+  cout << "debug 13" << endl;
   cout << "move from " << (char)(cp->getPosition().second + 'a') << (char)(8 - cp->getPosition().first + '0') << " to "  << (char)(move.second + 'a') << (char)(8 - move.first + '0') << endl;
   g->move(cp->getPosition(), move);
-  
+  cout << "debug 14" << endl;
   cout << *g;
 }
 

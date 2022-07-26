@@ -6,8 +6,9 @@ class Board;
 class Team;
 
 class Computer1 : public Computer {
-  void doPlay(Game *g) override;
   void doSetup(Board *, Team *) override;
+protected:
+  void doPlay(Game *g) override;
 public:
   Computer1();
 };

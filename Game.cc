@@ -305,7 +305,6 @@ operator<<(std::ostream& o, Game& g) {
 };
 
 bool Game::hasGameEnded() {
-    cout << (endgame ? "true" : "false") << endl;
     return endgame;
 }
 
