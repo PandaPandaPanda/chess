@@ -55,10 +55,12 @@ bool Game::isCheckMate() {
     Team* curTeam = turnColor == Color::Black ? &black : &white;
     Team* oppTeam = turnColor == Color::Black ? &white : &black;
 
+    // 1) The king is in check
     if (!b.checkInCheck(oppColor, oppTeam->getKing())) {
         return false;
     }
 
+    // 2) There is no move that the king can make that takes it out of check.
     vector<pair<int, int>> kingPossibleMoves =
         oppTeam->getKing()->getPossibleMoves(b);
     for (int i = kingPossibleMoves.size() - 1; i > 0; i--) {
@@ -81,6 +83,14 @@ bool Game::isCheckMate() {
             return false;
         }
     }
+
+    // if (oneAttackingPiece()) {
+    //     // 3) It is not possible to capture the attacking piece (impossible if there is more than one attacking piece).
+
+
+    //     // 4) It is not possible to interpose a piece between the king and the attacking piece (impossible if there is more than one attacking piece, impossible if the attacking piece is a knight).
+
+    // }
 
     return true;
 }
@@ -328,4 +338,3 @@ Color Game::getTurnColor() {
 Color Game::getWinner() {
     return winner;
 }
-

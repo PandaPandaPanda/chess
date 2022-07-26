@@ -33,6 +33,7 @@ pair<pair<int, int>, pair<int, int>> Computer2::doGetMove() {
         cout << "debug 24" << endl;
         const ChessPiece *myPiece = homeTeam->getPieces().at(i);
         cout << "debug 25" << endl;
+        cout << myPiece->getType() << endl;
         myPiece->getPossibleMoves(*b);
         cout << "debug 26" << endl;
         for (int i = 0; i < (int)myPiece->getPossibleMoves(*b).size(); i++) {
