@@ -115,3 +115,19 @@ bool Pawn::enPassantCapturable() {
 void Pawn::invalidateEnPassantCapturable() {
   justDoubleAdvanced = false;
 }
+
+
+vector<pair<int, int>> Pawn::possibleAttacks(const Board &b) const {
+  vector<pair<int, int>> attacks;
+  int dr = moveDirection();
+  const pair<int, int> myPos = getPosition();
+  const pair<int, int> attack1 = {myPos.first + dr, myPos.second + 1};
+  const pair<int, int> attack2 = {myPos.first + dr, myPos.second - 1};
+  if (inBounds(attack1)) {
+    attacks.emplace_back(attack1);
+  }
+  if (inBounds(attack2)) {
+    attacks.emplace_back(attack2);
+  }
+  return attacks; 
+}
