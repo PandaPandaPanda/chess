@@ -15,6 +15,7 @@ class Game
   Team white;
   Color turnColor; // starts with black's turn
   Color winner;
+  int steps = 0;
   bool endgame;
 
   bool canMove(std::pair<int, int> start, std::pair<int, int> dest);
@@ -29,6 +30,7 @@ public:
   void setPlayer(Color c, Player* p);
   bool move(std::pair<int, int> start, std::pair<int, int> dest);
   bool hasGameEnded();
+  int getSteps();
   friend std::ostream& operator<<(std::ostream&, Game&);
 };
 #endif

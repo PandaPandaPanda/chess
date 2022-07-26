@@ -6,7 +6,7 @@
 #include "Computer2.h"
 #include "Computer3.h"
 #include "Computer4.h"
-#include "Game.h"
+#include "game.h"
 #include "Human.h"
 #include "Player.h"
 #include "sdl_wrap.h"
@@ -55,38 +55,70 @@ int
 main()
 {
   string cmd;
-  Game game;
+  Game *game;
   Player* whitePlayer;
   Player* blackPlayer;
   cout << game; // print out board is working
-  while (cin >> cmd) {
+  while (!cin.eof()) {
+    cin >> cmd;
+    if (!game && cmd != "game" ) {
+      cout << "Game has not been initialized" << cmd << endl;
+      continue;
+    }
+
+    if (game && game->hasGameEnded() && cmd != "game") {
+      cout << "Game has ended. Start a new game." << endl;
+      continue;
+    }
+
     if (cmd == "game") {
       string whiteType, blackType;
       cin >> whiteType >> blackType;
+
+      game = new Game{};
       whitePlayer = createPlayer(whiteType);
       blackPlayer = createPlayer(blackType);
-      game.setPlayer(Color::Black, blackPlayer);
-      game.setPlayer(Color::White, whitePlayer);
-    } else if (cmd == "resign") {
-      game.resign();
-    } else if (cmd == "move") {
+      game->setPlayer(Color::Black, blackPlayer);
+      game->setPlayer(Color::White, whitePlayer);
+      continue;
+    } 
+
+    if (game->getSteps() > 0 && cmd == "setup") {
+      cout << "Game is already started, can no longer setup"<< endl;
+      continue;
+    }
+
+    if (cmd == "setup") {
+      game->setup();
+      continue;
+    }
+    
+    if (cmd == "resign") {
+      game->resign();
+      continue;
+    }
+    
+    if (cmd == "move") {
       string startStr, destStr;
       pair<int, int> start, dest;
       cin >> startStr >> destStr;
       while (cin) {
         start = parseMove(startStr);
         dest = parseMove(destStr);
-        if (game.move(start, dest)) {
+        if (game->move(start, dest)) {
           cout << game;
           break;
         }
         cout << "Invalid start/dest move" << endl;
         cin >> startStr >> destStr;
       }
-    } else if (cmd == "setup") {
-      game.setup();
-    } else {
-      cout << "Invalid command: " << cmd << endl;
+      continue;
     }
+
+    cout << "Invalid command: " << cmd << endl;
   }
+
+  if (game) { delete game; }
+  if (whitePlayer) { delete whitePlayer; }
+  if (blackPlayer) { delete blackPlayer; }
 }

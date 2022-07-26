@@ -218,7 +218,8 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
     }
 
     turnColor = turnColor == Color::Black ? Color::White : Color::Black;
-
+    steps++;
+    
     return true;
 }
 
@@ -236,4 +237,8 @@ operator<<(std::ostream& o, Game& g) {
 
 bool Game::hasGameEnded() {
     return endgame;
+}
+
+int Game::getSteps() {
+    return steps;
 }
