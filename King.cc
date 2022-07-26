@@ -16,7 +16,7 @@ bool King::enemyCanAttack(const std::pair<int, int> pos, const Board &b) const {
   for (int r = 0; r < 8; ++r) {
     for (int c = 0; c < 8; ++c) {
       const ChessPiece *p = b.getChessPiece(r, c);
-      if (p != nullptr && p->getColor() != myColor) {
+      if (p != nullptr && p->getColor() != myColor && p->getType() != ChessType::KING) {
         if (p->canMove(pos, b)) {
           return true;
         }
