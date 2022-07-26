@@ -55,15 +55,21 @@ Game::canMove(pair<int, int> start, pair<int, int> dest)
 bool
 Game::isCheckMate()
 {
+  Color oppColor = turnColor == Color::Black ? Color::White : Color::Black;
   Team* curTeam = turnColor == Color::Black ? &black : &white;
   Team* oppTeam = turnColor == Color::Black ? &white : &black;
+
+  if (!b.checkInCheck(oppColor, oppTeam->getKing())) {
+    return false;
+  }
+  
   vector<pair<int, int>> kingPossibleMoves =
-    curTeam->getKing()->getPossibleMoves(b);
+    oppTeam->getKing()->getPossibleMoves(b);
   for (int i = kingPossibleMoves.size() - 1; i > 0; i--) {
     bool badMove = false;
-    for (const ChessPiece* oppPiece : oppTeam->getPieces()) {
-      for (pair<int, int> oppPossibleMoves : oppPiece->getPossibleMoves(b)) {
-        if (oppPossibleMoves == kingPossibleMoves[i]) {
+    for (const ChessPiece* curPiece : curTeam->getPieces()) {
+      for (pair<int, int> curPossibleMoves : curPiece->getPossibleMoves(b)) {
+        if (curPossibleMoves == kingPossibleMoves[i]) {
           badMove = true;
           break;
         }
@@ -88,8 +94,8 @@ bool Game::isStaleMate() {
   if (((King *)team->getKing())->inCheck(b)) {
     return false;
   }
-  for (const auto p : team->getPieces()) {
-    if (p->getPossibleMoves().size() > 0) {
+  for (const ChessPiece* p : team->getPieces()) {
+    if (p->getPossibleMoves(b).size() > 0) {
       return false;
     }
   }
@@ -112,6 +118,7 @@ Game::Game()
   , black{ Team(Color::Black, &b) }
   , white{ Team(Color::White, &b) }
   , turnColor{ Color::White }
+  , steps{ 0 }
   , endgame{ false }
 {
 }
@@ -323,6 +330,7 @@ operator<<(std::ostream& o, Game& g)
 bool
 Game::hasGameEnded()
 {
+  cout << (endgame ? "true" : "false") << endl;
   return endgame;
 }
 

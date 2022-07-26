@@ -15,7 +15,7 @@ class Game
   Team white;
   Color turnColor; // starts with black's turn
   Color winner;
-  int steps = 0;
+  int steps;
   bool endgame;
 
   bool canMove(std::pair<int, int> start, std::pair<int, int> dest);

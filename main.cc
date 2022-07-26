@@ -6,7 +6,7 @@
 #include "Computer2.h"
 #include "Computer3.h"
 #include "Computer4.h"
-#include "game.h"
+#include "Game.h"
 #include "Human.h"
 #include "Player.h"
 #include "sdl_wrap.h"
@@ -55,10 +55,9 @@ int
 main()
 {
   string cmd;
-  Game *game;
-  Player* whitePlayer;
-  Player* blackPlayer;
-  cout << game; // print out board is working
+  Game *game = nullptr;
+  Player* whitePlayer = nullptr;
+  Player* blackPlayer = nullptr;
   while (!cin.eof()) {
     cin >> cmd;
     if (!game && cmd != "game" ) {
@@ -66,20 +65,27 @@ main()
       continue;
     }
 
-    if (game && game->hasGameEnded() && cmd != "game") {
+    if (game != nullptr && game->hasGameEnded() && cmd != "game") {
       cout << "Game has ended. Start a new game." << endl;
       continue;
     }
 
     if (cmd == "game") {
       string whiteType, blackType;
-      cin >> whiteType >> blackType;
+      cin >> whiteType;
+      cin >> blackType;
+
+      if (game != nullptr) { delete game; }
+      if (whitePlayer != nullptr) { delete whitePlayer; }
+      if (blackPlayer != nullptr) { delete blackPlayer; }
 
       game = new Game{};
       whitePlayer = createPlayer(whiteType);
       blackPlayer = createPlayer(blackType);
       game->setPlayer(Color::Black, blackPlayer);
       game->setPlayer(Color::White, whitePlayer);
+
+      cout << *game; // print out board is working
       continue;
     } 
 
@@ -106,7 +112,7 @@ main()
         start = parseMove(startStr);
         dest = parseMove(destStr);
         if (game->move(start, dest)) {
-          cout << game;
+          cout << *game;
           break;
         }
         cout << "Invalid start/dest move, please enter two valid coordinates "
@@ -121,8 +127,6 @@ main()
       // TODO:: Print score
       break;
     } 
-      cout << "Invalid command: " << cmd << endl;
-    }
 
     cout << "Invalid command: " << cmd << endl;
   }
