@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 #include "Cell.h"
@@ -55,6 +56,8 @@ int
 main()
 {
   string cmd;
+  double whiteScore = 0;
+  double blackScore = 0;
   Game *game = nullptr;
   Player* whitePlayer = nullptr;
   Player* blackPlayer = nullptr;
@@ -70,20 +73,29 @@ main()
       }
     }
 
+    if (game && game->hasGameEnded()) {
+      if (game->getWinner() == 'D') {
+        cout << "Draw" << endl;
+        whiteScore += 0.5;
+        blackScore += 0.5;
+      } else {
+        if (game->getWinner() == 'W') {
+          cout << "White won" << endl;
+          whiteScore += 1;
+        } else {
+          cout << "Black won" << endl;
+          blackScore += 1;
+        }
+        
+      }
+    }
+
+    cin >> cmd;
     if (cmd == "exit") {
       // TODO:: Print score
       break;
     } 
 
-    if (game && game->hasGameEnded()) {
-      if (game->getWinner() == 'D') {
-        cout << "Draw" << endl;
-      } else {
-        cout << (game->getWinner() == 'W' ? "White" : "Black") << " won" << endl;
-      }
-    }
-
-    cin >> cmd;
     if (!game && cmd != "game" ) {
       cout << "Game has not been initialized" << cmd << endl;
       continue;
@@ -149,6 +161,12 @@ main()
 
     cout << "Invalid command: " << cmd << endl;
   }
+
+  cout << fixed;
+  cout << setprecision(1);
+  cout << "Final Score:" << endl;
+  cout << "White: " << whiteScore << endl;
+  cout << "Black: " << whiteScore << endl;
 
   if (game) { delete game; }
   if (whitePlayer) { delete whitePlayer; }
