@@ -87,6 +87,8 @@ main()
       }
     } else if (cmd == "setup") {
       game.setup();
+    } else if (cmd == "exit") {
+      break;
     } else {
       cout << "Invalid command: " << cmd << endl;
     }
