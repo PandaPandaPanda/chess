@@ -91,7 +91,10 @@ main()
 
     cin >> cmd;
     if (cmd == "exit") {
-      // TODO:: Print score
+      break;
+    }
+
+    if (cin.eof()) {
       break;
     }
 
@@ -173,13 +176,17 @@ main()
   cout << "White: " << whiteScore << endl;
   cout << "Black: " << whiteScore << endl;
 
+  cout << "debug main 1" << endl;
   if (game) {
+  cout << "debug main 2" << endl;
     delete game;
   }
   if (whitePlayer) {
+  cout << "debug main 3" << endl;
     delete whitePlayer;
   }
   if (blackPlayer) {
+  cout << "debug main 4" << endl;
     delete blackPlayer;
   }
 }
