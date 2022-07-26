@@ -9,7 +9,6 @@ using namespace std;
 // Avoids capturing, unless we could make a beneficial trade piece
 pair<pair<int, int>, pair<int, int>> Computer4::doGetMove() {
     // think like ur enemy
-    cout << "debug 41" << endl;
     pair<pair<int, int>, pair<int, int>> move = c2.getMove();
 
     pair<int, int> oppStart = move.first;
@@ -97,7 +96,6 @@ pair<pair<int, int>, pair<int, int>> Computer4::doGetMove() {
         }
     }
 
-    cout << "debug 44" << endl;
     return Computer2::getMove();
 }
 
