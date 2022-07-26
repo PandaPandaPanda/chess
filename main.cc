@@ -70,6 +70,11 @@ main()
       }
     }
 
+    if (cmd == "exit") {
+      // TODO:: Print score
+      break;
+    } 
+
     if (game && game->hasGameEnded()) {
       cout << (game->getWinner() == 'W' ? "White" : "Black") << " won" << endl;
     }
@@ -136,11 +141,6 @@ main()
         cin >> startStr >> destStr;
       }
       continue;
-    } 
-    
-    if (cmd == "exit") {
-      // TODO:: Print score
-      break;
     } 
 
     cout << "Invalid command: " << cmd << endl;
