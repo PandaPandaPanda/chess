@@ -33,6 +33,7 @@ public:
   bool move(std::pair<int, int> start, std::pair<int, int> dest);
   bool hasGameEnded();
   int getSteps();
+  Color getTurnColor();
   friend std::ostream& operator<<(std::ostream&, Game&);
 };
 #endif
