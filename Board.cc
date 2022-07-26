@@ -33,6 +33,21 @@ Board::checkInCheck(Color c, const ChessPiece* king) const
 }
 
 bool
+Board::checkInCheck(std::pair<int, int> attackerPos,
+                    std::pair<int, int> kingPos) const
+{
+  const ChessPiece* p =
+    grid[attackerPos.first][attackerPos.second].getChessPiece();
+  const ChessPiece* king = grid[kingPos.first][kingPos.second].getChessPiece();
+  if (p != nullptr && p->getColor() != king->getColor()) {
+    if (p->canMove(king->getPosition(), *this)) {
+      return true;
+    }
+    return false;
+  }
+}
+
+bool
 Board::verify()
 {
   // exactly 1 white and black king

@@ -23,6 +23,8 @@ public:
   ~Board();
   const ChessPiece* getChessPiece(int r, int c) const;
   bool checkInCheck(Color c, const ChessPiece* king) const;
+  bool checkInCheck(std::pair<int, int> attackerPos,
+                    std::pair<int, int> kingPos) const;
   void move(std::pair<int, int> start, std::pair<int, int> dest);
   void addPiece(Color pieceColor, char type, int r, int c);
   void addPiece(Color pieceColor, ChessType type, int r, int c);
