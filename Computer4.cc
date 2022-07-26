@@ -1,5 +1,6 @@
 #include "Computer4.h"
-
+#include "ChessPiece.h"
+#include "Pawn.h"
 #include "Board.h"
 #include "Team.h"
 
@@ -11,7 +12,6 @@ pair<pair<int, int>, pair<int, int>> Computer4::doGetMove() {
     cout << "debug 41" << endl;
     pair<pair<int, int>, pair<int, int>> move = c2.getMove();
 
-    pair<int, int> oppStart = move.first;
     pair<int, int> oppDest = move.second;
 
     if (b->getChessPiece(oppDest.first, oppDest.second) &&
@@ -30,9 +30,17 @@ pair<pair<int, int>, pair<int, int>> Computer4::doGetMove() {
         cout << "debug 42" << endl;
         vector<vector<bool>> table(8, vector<bool>(8, false));
         for (int i = 0; i < (int)oppTeam->getPieces().size(); i++) {
-            for (int j = 0; j < (int)oppTeam->getPieces().at(i)->getPossibleMoves(*b).size(); j++) {
-                pair<int, int> enemyMove = oppTeam->getPieces().at(i)->getPossibleMoves(*b)[j];
-                table[enemyMove.first][enemyMove.second] = true;
+            if (oppTeam->getPieces().at(i)->getType() == ChessType::PAWN) {
+                const Pawn * myPawn = dynamic_cast<const Pawn *>(oppTeam->getPieces().at(i));
+                for (int j = 0; j < (int) myPawn->possibleAttacks(*b).size(); j++ ) {
+                    pair<int, int> enemyMove = myPawn->possibleAttacks(*b)[j];
+                    table[enemyMove.first][enemyMove.second] = true;
+                }
+            } else {
+                for (int j = 0; j < (int)oppTeam->getPieces().at(i)->getPossibleMoves(*b).size(); j++) {
+                    pair<int, int> enemyMove = oppTeam->getPieces().at(i)->getPossibleMoves(*b)[j];
+                    table[enemyMove.first][enemyMove.second] = true;
+                }
             }
         }
         cout << "debug 43" << endl;
