@@ -54,7 +54,6 @@ Cell::movePieceTo(Cell& newPos)
   newPos.setChessPiece(p);
 
   p = nullptr;
-  newPos.notifyTextObserver();
   notifyTextObserver();
 }
 
@@ -87,13 +86,19 @@ Cell::setCoords(int r, int c, Screen* scr, int dimension, bool isWhiteCell)
 }
 
 void
-Cell::resetCell()
+Cell::drawCell()
 {
   Colour colorToDraw =
     isWhiteCell ? Colour{ '\xff', '\xff', '\xff' } : Colour{ 0x0, 0x0, 0x0 };
 
   scr->draw_rect(
     c * dimension, r * dimension, dimension, dimension, colorToDraw);
+}
+
+void
+Cell::resetCell()
+{
+  scr->undraw_img(c * dimension, r * dimension);
 }
 
 void
@@ -127,7 +132,6 @@ Cell::drawPiece()
         toDraw += 'K';
         break;
     }
-
-    scr->draw_img(toDraw, c * dimension + 10, r * dimension + 10);
+    scr->draw_img(toDraw, c * dimension, r * dimension);
   }
 }

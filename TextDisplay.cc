@@ -22,11 +22,6 @@ TextDisplay::TextDisplay()
   emojiMap[ChessType::KING][Color::White] = "♔";
 }
 
-TextDisplay::~TextDisplay()
-{
-  // todo
-}
-
 void
 TextDisplay::notify(Cell& c)
 {
@@ -36,14 +31,16 @@ TextDisplay::notify(Cell& c)
     theDisplay[row][col] =
       emojiMap[c.getChessPiece()->getType()][c.getChessPiece()->getColor()] +
       " ";
+    c.drawPiece();
   } else {
+    c.resetCell();
     theDisplay[row][col] = "  ";
   }
-  c.resetCell();
-  c.drawPiece();
 }
 
-ostream &operator<<(ostream &out, const TextDisplay &td) {
+ostream&
+operator<<(ostream& out, const TextDisplay& td)
+{
   for (int r = 0; r < 8; ++r) {
     out << 8 - r << " "; // index to number
     out << "|";
@@ -55,8 +52,10 @@ ostream &operator<<(ostream &out, const TextDisplay &td) {
   }
 
   out << "   ";
+  char toOutput = 'a';
   for (int i = 0; i < 8; i++) {
-    out << (char)(i + 'a') << "  ";
+    out << toOutput << "  ";
+    toOutput += 1;
   }
   out << endl;
   return out;

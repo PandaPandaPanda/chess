@@ -17,9 +17,11 @@ class Board
   Screen* scr;
   std::pair<int, int> stringToCoords(std::string);
   bool checkInCheck(Color c, const ChessPiece* king) const;
+  void loadAllChessPieces();
 
 public:
   Board(TextDisplay* td, Screen* scr);
+  ~Board();
   const ChessPiece* getChessPiece(int r, int c) const;
   void move(std::pair<int, int> start, std::pair<int, int> dest);
   void addPiece(Color pieceColor, char type, int r, int c);

@@ -17,5 +17,6 @@ class Pawn : public ChessPiece {
 public:
   Pawn(Color, int, int);
   bool enPassantCapturable();
+  void invalidateEnPassantCapturable();
 };
 #endif

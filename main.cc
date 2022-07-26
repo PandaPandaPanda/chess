@@ -109,10 +109,19 @@ main()
           cout << game;
           break;
         }
-        cout << "Invalid start/dest move" << endl;
+        cout << "Invalid start/dest move, please enter two valid coordinates "
+                "in form [a-h][1-8]"
+             << endl;
         cin >> startStr >> destStr;
       }
       continue;
+    } 
+    
+    if (cmd == "exit") {
+      // TODO:: Print score
+      break;
+    } 
+      cout << "Invalid command: " << cmd << endl;
     }
 
     cout << "Invalid command: " << cmd << endl;
