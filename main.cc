@@ -80,10 +80,8 @@ main()
         blackScore += 0.5;
       } else {
         if (game->getWinner() == 'W') {
-          cout << "White won" << endl;
           whiteScore += 1;
         } else {
-          cout << "Black won" << endl;
           blackScore += 1;
         }
         

@@ -312,7 +312,7 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
         return false;
     }
 
-cout << "debug move 2" << endl;
+    cout << "debug move 2" << endl;
 
     const ChessPiece* p = b.getChessPiece(dest.first, dest.second);
     if (p) {  // normal capturing
@@ -320,6 +320,13 @@ cout << "debug move 2" << endl;
         if (p->getType() == ChessType::KING) {
             endgame = true;
             winner = turnColor;
+            if (turnColor == Color::Black) {
+                winner = Color::Black;
+                cout << "Black wins!" << endl;
+            } else {
+                winner = Color::White;
+                cout << "White wins!" << endl;
+            }
             return true;
         }
         if (turnColor == Color::White) {
@@ -342,7 +349,7 @@ cout << "debug move 2" << endl;
         }
     }
 
-cout << "debug move 3" << endl;
+    cout << "debug move 3" << endl;
 
     bool promote = false;
     ChessType ct;
@@ -381,11 +388,11 @@ cout << "debug move 3" << endl;
         }
     }
 
-cout << "debug move 4" << endl;
+    cout << "debug move 4" << endl;
 
     b.move(start, dest);
 
-cout << "debug move 5" << endl;
+    cout << "debug move 5" << endl;
 
     if (promote) {
         if (turnColor == Color::Black) {
@@ -395,18 +402,21 @@ cout << "debug move 5" << endl;
         }
     }
 
-cout << "debug move 6" << endl;
+    cout << "debug move 6" << endl;
 
     if (isCheckMate()) {
-        cout << "debug checkmate" << endl;
         endgame = true;
         winner = turnColor;  // player wins
+        cout << "Checkmate! ";
+        cout << (turnColor == Color::Black ? "Black" : "White") << " wins!";
+        cout << endl;
     }
     cout << "debug NOT checkmate" << endl;
 
     if (isStaleMate()) {
         endgame = true;
-        winner = 'D'; // Draw
+        winner = 'D';  // Draw
+        cout << "Stalemate!" << endl;
     }
 
     invalidateEnPassant();
@@ -419,8 +429,15 @@ cout << "debug move 6" << endl;
 
 void Game::resign() {
     endgame = true;
-    winner =
-        turnColor == Color::Black ? Color::White : Color::Black;  // opponent wins
+
+    // opponent wins
+    if (turnColor == Color::Black) {
+        winner = Color::White;
+        cout << "White wins!" << endl;
+    } else {
+        winner = Color::Black;
+        cout << "Black wins!" << endl;
+    }
 }
 ostream&
 operator<<(std::ostream& o, Game& g) {
