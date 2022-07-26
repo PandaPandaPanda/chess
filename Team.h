@@ -21,6 +21,7 @@ public:
   const Color getColor();
   const std::vector<const ChessPiece *> getPieces();
   void setPlayer(Player *p);
+  Player* getPlayer();
   void removePiece(const ChessPiece *cp);
   void promotePawn(Pawn *cp, ChessType t);
 };

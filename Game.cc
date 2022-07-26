@@ -84,8 +84,8 @@ bool Game::isCheckMate() {
         }
     }
 
-    const pair<const ChessPiece *, int> pair = oneAttackingPiece(oppTeam->getKing());
-    const ChessPiece *attackingPiece = pair.first;
+    const pair<const ChessPiece*, int> pair = oneAttackingPiece(oppTeam->getKing());
+    const ChessPiece* attackingPiece = pair.first;
     const int count = pair.second;
     if (count == 0) {
         cout << "This shouldn't happen" << endl;
@@ -107,15 +107,15 @@ bool Game::isCheckMate() {
     return true;
 }
 
-pair<const ChessPiece *, int> Game::oneAttackingPiece(const ChessPiece *king) {
+pair<const ChessPiece*, int> Game::oneAttackingPiece(const ChessPiece* king) {
     int count = 0;
-    Team *enemyTeam = king->getColor() == Color::White ? &black : &white;
-    const ChessPiece *attackingPiece = nullptr;
+    Team* enemyTeam = king->getColor() == Color::White ? &black : &white;
+    const ChessPiece* attackingPiece = nullptr;
     for (const auto enemy : enemyTeam->getPieces()) {
         if (enemy->canMove(king->getPosition(), b)) {
             ++count;
             if (attackingPiece != nullptr) {
-                return {nullptr, count}; // found two attacking pieces
+                return {nullptr, count};  // found two attacking pieces
             }
             attackingPiece = enemy;
         }
@@ -123,8 +123,8 @@ pair<const ChessPiece *, int> Game::oneAttackingPiece(const ChessPiece *king) {
     return {attackingPiece, count};
 }
 
-bool Game::canCaptureAttacking(const ChessPiece *attackingPiece) {
-    Team *attackedTeam = attackingPiece->getColor() == Color::Black ? &white : &black;
+bool Game::canCaptureAttacking(const ChessPiece* attackingPiece) {
+    Team* attackedTeam = attackingPiece->getColor() == Color::Black ? &white : &black;
     for (const auto p : attackedTeam->getPieces()) {
         if (p->canMove(attackingPiece->getPosition(), b)) {
             return true;
@@ -133,12 +133,12 @@ bool Game::canCaptureAttacking(const ChessPiece *attackingPiece) {
     return false;
 }
 
-bool Game::canBlockCheck(const ChessPiece *attackingPiece, const ChessPiece *king) {
+bool Game::canBlockCheck(const ChessPiece* attackingPiece, const ChessPiece* king) {
     ChessType t = attackingPiece->getType();
     if (t != ChessType::BISHOP && t != ChessType::ROOK && t != ChessType::QUEEN) {
         return false;
     }
-    Team *kingTeam = king->getColor() == Color::Black ? &black : &white;
+    Team* kingTeam = king->getColor() == Color::Black ? &black : &white;
     vector<pair<int, int>> blockablePositions;
     int dr = 0;
     int dc = 0;
@@ -169,8 +169,8 @@ bool Game::canBlockCheck(const ChessPiece *attackingPiece, const ChessPiece *kin
     return false;
 }
 
-bool Game::knightAttackingKing(const ChessPiece *king) {
-    Team *enemyTeam = king->getColor() == Color::White ? &black : &white;
+bool Game::knightAttackingKing(const ChessPiece* king) {
+    Team* enemyTeam = king->getColor() == Color::White ? &black : &white;
     for (const auto enemy : enemyTeam->getPieces()) {
         if (enemy->getType() == ChessType::KNIGHT && enemy->canMove(king->getPosition(), b)) {
             return true;
@@ -340,8 +340,16 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
     ChessType ct;
 
     if (b.getChessPiece(start.first, start.second)->getType() == ChessType::PAWN && (dest.first == 0 || dest.first == 7)) {  // promotion
-        char t;                                                                                                              // promote to what
-        cin >> t;
+        char t;
+        if (turnColor == Color::Black && black.getPlayer()->getType() == PlayerType::C) {
+            t = black.getPlayer()->getPromotionChoice();
+        } else if (turnColor == Color::White && white.getPlayer()->getType() == PlayerType::C) {
+            t = white.getPlayer()->getPromotionChoice();
+        } else {
+            cin >> t;
+        }
+        // promote to what
+
         switch (t) {
             case 'Q':
                 ct = ChessType::QUEEN;
@@ -380,7 +388,7 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
         endgame = true;
         winner = turnColor;  // player wins
     }
-     cout << "debug NOT checkmate" << endl;
+    cout << "debug NOT checkmate" << endl;
 
     if (isStaleMate()) {
         endgame = true;

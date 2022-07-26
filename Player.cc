@@ -17,3 +17,7 @@ void Player::play(Game *g) {
 PlayerType Player::getType() {
     return doGetType();
 }
+
+char Player::getPromotionChoice() {
+    return doGetPromotionChoice();
+}

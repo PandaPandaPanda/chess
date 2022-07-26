@@ -12,6 +12,7 @@ class Computer : public Player {
   virtual std::pair<std::pair<int, int>, std::pair<int, int>> doGetMove() = 0;
   virtual void doSetup(Board *b, Team *homeTeam, Team* oppTeam) = 0;
   PlayerType doGetType() override;
+  char doGetPromotionChoice() override;
 protected:
   Computer();
   Team *homeTeam;

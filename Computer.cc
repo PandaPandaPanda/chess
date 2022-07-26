@@ -12,8 +12,10 @@ PlayerType Computer::doGetType() { return PlayerType::C; }
 void Computer::doPlay(Game *g) {
     pair<pair<int, int>, pair<int, int>> move = doGetMove();
 
-    cout << "move from " << (char)(move.first.second + 'a') << (char)(8 - move.first.first + '0') << " to " << (char)(move.second.second + 'a') << (char)(8 - move.second.first + '0') << endl;
+    cout
+        << "move from " << (char)(move.first.second + 'a') << (char)(8 - move.first.first + '0') << " to " << (char)(move.second.second + 'a') << (char)(8 - move.second.first + '0') << endl;
     g->move(move.first, move.second);
+
     cout << *g;
 }
 
@@ -34,4 +36,8 @@ int Computer::getRandomNum(int upperBound) {
 
     // generates the random number
     return generator() % upperBound;
+}
+
+char Computer::doGetPromotionChoice() {
+    return 'Q';
 }
