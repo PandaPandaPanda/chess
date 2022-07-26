@@ -76,7 +76,11 @@ main()
     } 
 
     if (game && game->hasGameEnded()) {
-      cout << (game->getWinner() == 'W' ? "White" : "Black") << " won" << endl;
+      if (game->getWinner() == 'D') {
+        cout << "Draw" << endl;
+      } else {
+        cout << (game->getWinner() == 'W' ? "White" : "Black") << " won" << endl;
+      }
     }
 
     cin >> cmd;

@@ -316,8 +316,10 @@ cout << "debug move 2" << endl;
 
     const ChessPiece* p = b.getChessPiece(dest.first, dest.second);
     if (p) {  // normal capturing
+        // capturing king
         if (p->getType() == ChessType::KING) {
             endgame = true;
+            winner = turnColor;
             return true;
         }
         if (turnColor == Color::White) {
@@ -404,7 +406,7 @@ cout << "debug move 6" << endl;
 
     if (isStaleMate()) {
         endgame = true;
-        // winner = ?; // todo
+        winner = 'D'; // Draw
     }
 
     invalidateEnPassant();
@@ -439,6 +441,6 @@ Color Game::getTurnColor() {
     return turnColor;
 }
 
-Color Game::getWinner() {
+char Game::getWinner() {
     return winner;
 }
