@@ -11,6 +11,7 @@ pair<pair<int, int>, pair<int, int>> Computer3::doGetMove() {
     // think like ur enemy
     pair<pair<int, int>, pair<int, int>> move = c2.getMove();
 
+    pair<int, int> oppStart = move.first;
     pair<int, int> oppDest = move.second;
 
     if (b->getChessPiece(oppDest.first, oppDest.second) &&
@@ -29,6 +30,48 @@ pair<pair<int, int>, pair<int, int>> Computer3::doGetMove() {
                     pair<int, int> enemyMove = oppTeam->getPieces().at(i)->getPossibleMoves(*b)[j];
                     table[enemyMove.first][enemyMove.second] = true;
                 }
+
+                ChessType enemyType = oppTeam->getPieces().at(i)->getType();
+                // extra precaution for chess moving along the enemy line of attack
+                if (enemyType != ChessType::KNIGHT) {
+                    if (oppStart.first == oppDest.first) {
+                        for (int i = 0; i < 8; i++) {
+                            table[oppStart.first][i] = true;
+                        }
+                    } else if (oppStart.second == oppDest.second) {
+                        for (int i = 0; i < 8; i++) {
+                            table[i][oppStart.second] = true;
+                        }
+                    } else if (oppStart.first < oppDest.first && oppStart.second < oppDest.second) {
+                        int r = oppStart.first, c = oppStart.first;
+                        while (r < 8 && c < 8) {
+                            table[r][c] = true;
+                            r++;
+                            c++;
+                        }
+                    } else if (oppStart.first > oppDest.first && oppStart.second > oppDest.second) {
+                        int r = oppStart.first, c = oppStart.first;
+                        while (r >= 0 && c >= 0) {
+                            table[r][c] = true;
+                            r--;
+                            c--;
+                        }
+                    } else if (oppStart.first < oppDest.first && oppStart.second > oppDest.second) {
+                        int r = oppStart.first, c = oppStart.first;
+                        while (r <8 && c >= 0) {
+                            table[r][c] = true;
+                            r++;
+                            c--;
+                        }
+                    } else {
+                        int r = oppStart.first, c = oppStart.first;
+                        while (r >= 0 && c < 8) {
+                            table[r][c] = true;
+                            r--;
+                            c++;
+                        }
+                    }
+                } 
             }
         }
         const ChessPiece *myPiece = b->getChessPiece(oppDest.first, oppDest.second);
