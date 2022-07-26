@@ -6,9 +6,9 @@ class Board;
 class Team;
 
 class Computer1 : public Computer {
-  void doSetup(Board *, Team *) override;
+  void doSetup(Board *b, Team *homeTeam, Team* oppTeam) override;
 protected:
-  void doPlay(Game *g) override;
+  std::pair<std::pair<int, int>, std::pair<int, int>> doGetMove() override;
 public:
   Computer1();
 };

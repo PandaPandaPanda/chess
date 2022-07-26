@@ -8,15 +8,18 @@ class Team;
 enum PlayerType;
 
 class Computer : public Player {
-  virtual void doPlay(Game *g) = 0;
-  virtual void doSetup(Board *, Team *) = 0;
+  void doPlay(Game *g) override;
+  virtual std::pair<std::pair<int, int>, std::pair<int, int>> doGetMove() = 0;
+  virtual void doSetup(Board *b, Team *homeTeam, Team* oppTeam) = 0;
   PlayerType doGetType() override;
 protected:
   Computer();
-  Team *t;
+  Team *homeTeam;
+  Team *oppTeam;
   Board *b;
 public:
-  void setup(Board *b, Team *t);
+  std::pair<std::pair<int, int>, std::pair<int, int>> getMove();
+  void setup(Board *b, Team *homeTeam, Team* oppTeam);
   int getRandomNum(int upperBound);
 };
 #endif

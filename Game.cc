@@ -185,16 +185,19 @@ void Game::setup() {
 
 void Game::setPlayer(Color c, Player* p) {
     Team* homeTeam;
+    Team* oppTeam;
     if (c == Color::Black) {
         homeTeam = &black;
+        oppTeam = &white;
         black.setPlayer(p);
     } else if (c == Color::White) {
         homeTeam = &white;
+        oppTeam = &black;
         white.setPlayer(p);
     }
 
     if (p->getType() == PlayerType::C) {
-        dynamic_cast<Computer*>(p)->setup(&b, homeTeam);
+        dynamic_cast<Computer*>(p)->setup(&b, homeTeam, oppTeam);
     };
 
     if (c == Color::Black) {

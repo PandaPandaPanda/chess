@@ -1,14 +1,18 @@
 #ifndef __Computer4_h_
 #define __Computer4_h_
-#include "Computer.h"
+#include "Computer3.h"
 
 class Board;
 class Team;
 
-class Computer4 : public Computer {
-  void doPlay(Game *g) override;
-  void doSetup(Board *, Team *) override;
-public:
-  Computer4();
+class Computer4 : public Computer3 {
+    void doSetup(Board *b, Team *homeTeam, Team *oppTeam) override;
+
+   protected:
+    virtual std::pair<std::pair<int, int>, std::pair<int, int>> doGetMove() override;
+
+   public:
+    Computer4();
+    ~Computer4();
 };
 #endif

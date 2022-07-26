@@ -18,6 +18,7 @@ class Team {
 public:
   Team(Color c, Board *b);
   const ChessPiece *getKing();
+  const Color getColor();
   const std::vector<const ChessPiece *> getPieces();
   void setPlayer(Player *p);
   void removePiece(const ChessPiece *cp);

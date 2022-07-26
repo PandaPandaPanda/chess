@@ -64,3 +64,7 @@ void Team::promotePawn(Pawn *cp, ChessType t) {
     }
   }
 }
+
+const Color Team::getColor() {
+  return c;
+}

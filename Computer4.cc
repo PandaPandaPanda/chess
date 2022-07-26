@@ -3,14 +3,18 @@
 #include "Board.h"
 #include "Team.h"
 
-void Computer4::doPlay(Game *g) {
-  // todo
+std::pair<std::pair<int, int>, std::pair<int, int>> Computer4::doGetMove() {
+  return {{}, {}};
 }
 
-void Computer4::doSetup(Board *, Team *) {
+void Computer4::doSetup(Board *b, Team *homeTeam, Team *oppTeam) {
   // todo
 }
 
 Computer4::Computer4() {
+  // todo
+}
+
+Computer4::~Computer4() {
   // todo
 }
