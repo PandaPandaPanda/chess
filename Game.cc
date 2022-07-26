@@ -492,7 +492,7 @@ ostream&
 operator<<(std::ostream& o, Game& g)
 {
   o << *g.t;
-  // g.scr->update();
+  g.scr->update();
   return o;
 };
 
