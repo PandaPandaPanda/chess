@@ -234,13 +234,42 @@ Game::move(std::pair<int, int> start, std::pair<int, int> dest)
       }
     }
 
+    bool promote = false;
+    ChessType ct;
+
+    if (b.getChessPiece(start.first, start.second)->getType() == ChessType::PAWN && (dest.first == 0 ||dest.first == 7)) { // promotion
+      char t; // promote to what
+      cin >> t;
+      switch (t) {
+      case 'Q':
+        ct = ChessType::QUEEN;
+        promote = true;
+        break;
+      case 'R':
+        ct = ChessType::ROOK;
+        promote = true;
+        break;
+      case 'B':
+        ct = ChessType::BISHOP;
+        promote = true;
+        break;
+      case 'N':
+        ct = ChessType::KNIGHT;
+        promote = true;
+        break;
+      default:
+        cout << "Promoted type can only be one of Q/R/B/N.";
+        return false;
+      }
+    }
+
     b.move(start, dest);
 
-    if (b.getChessPiece(dest.first, dest.second)->getType() == ChessType::PAWN && (dest.first == 0 ||dest.first == 7)) { // promotion
+    if (promote) {
       if (turnColor == Color::Black) {
-        black.promotePawn((Pawn *)b.getChessPiece(dest.first, dest.second), ChessType::QUEEN); // todo allow choice instead of always queen
+        black.promotePawn((Pawn *)b.getChessPiece(dest.first, dest.second), ct);
       } else {
-        white.promotePawn((Pawn *)b.getChessPiece(dest.first, dest.second), ChessType::QUEEN); // todo allow choice instead of always queen
+        white.promotePawn((Pawn *)b.getChessPiece(dest.first, dest.second), ct);
       }
     }
 
