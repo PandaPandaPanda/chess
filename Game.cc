@@ -58,6 +58,8 @@ bool Game::isCheckMate() {
     // 1) The king is in check
     if (!b.checkInCheck(oppColor, oppTeam->getKing())) {
         return false;
+    } else {
+        cout << (oppColor == Color::Black? "Black":"White") << " is in check." << endl;
     }
 
     // 2) There is no move that the king can make that takes it out of check.
