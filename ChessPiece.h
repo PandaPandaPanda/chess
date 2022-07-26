@@ -27,9 +27,9 @@ class ChessPiece {
 protected:
   ChessPiece(Color, int, int);
   void possibleMovesDirection(const Board &b, int dr, int dc, std::vector<std::pair<int, int>> &moves) const;
-  bool moved() const;
 
 public:
+  bool moved() const;
   Color getColor() const;
   std::pair<int, int> getPosition() const;
   std::vector<std::pair<int, int>> getPossibleMoves(const Board &b) const;

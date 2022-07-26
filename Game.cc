@@ -226,6 +226,13 @@ Game::move(std::pair<int, int> start, std::pair<int, int> dest)
             white.removePiece(b.getChessPiece(dest.first-1, dest.second));
         }
     }
+    if (b.getChessPiece(start.first, start.second)->getType() == ChessType::KING) { // check for castling
+      if (start.second + 2 == dest.second) {
+        b.move({start.first, 7}, {start.first, start.second + 1});
+      } else if (start.second - 2 == dest.second) {
+        b.move({start.first, 0}, {start.first, start.second - 1});
+      }
+    }
 
     b.move(start, dest);
 
