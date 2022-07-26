@@ -5,7 +5,7 @@
 enum PlayerType;
 
 class Human : public Player {
-  void doPlay() override;
+  void doPlay(Game *g) override;
   PlayerType doGetType() override;
 public:
   Human();

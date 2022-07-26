@@ -3,7 +3,7 @@
 #include "Board.h"
 #include "Team.h"
 
-void Computer4::doPlay() {
+void Computer4::doPlay(Game *g) {
   // todo
 }
 

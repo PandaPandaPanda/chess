@@ -6,7 +6,7 @@ class Board;
 class Team;
 
 class Computer2 : public Computer {
-  void doPlay() override;
+  void doPlay(Game *g) override;
   void doSetup(Board *, Team *) override;
 public:
   Computer2();

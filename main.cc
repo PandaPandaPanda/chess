@@ -61,11 +61,11 @@ main()
   while (!cin.eof()) {
     if (game) {
       if (game->getTurnColor() == Color::White && whitePlayer->getType() == PlayerType::C) {
-        whitePlayer->play();
+        whitePlayer->play(game);
         continue;
       }
       if (game->getTurnColor() == Color::Black && blackPlayer->getType() == PlayerType::C) {
-        blackPlayer->play();
+        blackPlayer->play(game);
         continue;
       }
     }

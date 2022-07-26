@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void Human::doPlay() {
+void Human::doPlay(Game *g) {
   // todo
 }
 

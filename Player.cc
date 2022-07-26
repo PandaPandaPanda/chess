@@ -10,8 +10,8 @@ Player::~Player() {
     // todo
 }
 
-void Player::play() {
-    // todo
+void Player::play(Game *g) {
+    doPlay(g);
 }
 
 PlayerType Player::getType() {
