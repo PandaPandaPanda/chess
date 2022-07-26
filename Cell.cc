@@ -91,14 +91,14 @@ Cell::drawCell()
   Colour colorToDraw =
     isWhiteCell ? Colour{ '\xff', '\xff', '\xff' } : Colour{ 0x0, 0x0, 0x0 };
 
-  scr->draw_rect(
-    c * dimension, r * dimension, dimension, dimension, colorToDraw);
+  // scr->draw_rect(
+  //   c * dimension, r * dimension, dimension, dimension, colorToDraw);
 }
 
 void
 Cell::resetCell()
 {
-  scr->undraw_img(c * dimension, r * dimension);
+  // scr->undraw_img(c * dimension, r * dimension);
 }
 
 void
@@ -132,6 +132,6 @@ Cell::drawPiece()
         toDraw += 'K';
         break;
     }
-    scr->draw_img(toDraw, c * dimension, r * dimension);
+    // scr->draw_img(toDraw, c * dimension, r * dimension);
   }
 }

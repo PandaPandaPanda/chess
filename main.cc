@@ -1,5 +1,5 @@
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 #include <string>
 
 #include "Cell.h"
@@ -15,7 +15,7 @@
 using namespace std;
 
 // where do we get the board and team from?
-SDL_Runner r;
+// SDL_Runner r;
 
 Player*
 createPlayer(string player)
@@ -58,16 +58,18 @@ main()
   string cmd;
   double whiteScore = 0;
   double blackScore = 0;
-  Game *game = nullptr;
+  Game* game = nullptr;
   Player* whitePlayer = nullptr;
   Player* blackPlayer = nullptr;
   while (!cin.eof()) {
     if (game && !(game->hasGameEnded())) {
-      if (game->getTurnColor() == Color::White && whitePlayer->getType() == PlayerType::C) {
+      if (game->getTurnColor() == Color::White &&
+          whitePlayer->getType() == PlayerType::C) {
         whitePlayer->play(game);
         continue;
       }
-      if (game->getTurnColor() == Color::Black && blackPlayer->getType() == PlayerType::C) {
+      if (game->getTurnColor() == Color::Black &&
+          blackPlayer->getType() == PlayerType::C) {
         blackPlayer->play(game);
         continue;
       }
@@ -84,7 +86,6 @@ main()
         } else {
           blackScore += 1;
         }
-        
       }
     }
 
@@ -92,9 +93,9 @@ main()
     if (cmd == "exit") {
       // TODO:: Print score
       break;
-    } 
+    }
 
-    if (!game && cmd != "game" ) {
+    if (!game && cmd != "game") {
       cout << "Game has not been initialized" << cmd << endl;
       continue;
     }
@@ -109,9 +110,15 @@ main()
       cin >> whiteType;
       cin >> blackType;
 
-      if (game != nullptr) { delete game; }
-      if (whitePlayer != nullptr) { delete whitePlayer; }
-      if (blackPlayer != nullptr) { delete blackPlayer; }
+      if (game != nullptr) {
+        delete game;
+      }
+      if (whitePlayer != nullptr) {
+        delete whitePlayer;
+      }
+      if (blackPlayer != nullptr) {
+        delete blackPlayer;
+      }
 
       game = new Game{};
       whitePlayer = createPlayer(whiteType);
@@ -121,10 +128,10 @@ main()
 
       cout << *game; // print out board is working
       continue;
-    } 
+    }
 
     if (game->getSteps() > 0 && cmd == "setup") {
-      cout << "Game is already started, can no longer setup"<< endl;
+      cout << "Game is already started, can no longer setup" << endl;
       continue;
     }
 
@@ -132,12 +139,12 @@ main()
       game->setup();
       continue;
     }
-    
+
     if (cmd == "resign") {
       game->resign();
       continue;
     }
-    
+
     if (cmd == "move") {
       string startStr, destStr;
       pair<int, int> start, dest;
@@ -155,7 +162,7 @@ main()
         cin >> startStr >> destStr;
       }
       continue;
-    } 
+    }
 
     cout << "Invalid command: " << cmd << endl;
   }
@@ -166,7 +173,13 @@ main()
   cout << "White: " << whiteScore << endl;
   cout << "Black: " << whiteScore << endl;
 
-  if (game) { delete game; }
-  if (whitePlayer) { delete whitePlayer; }
-  if (blackPlayer) { delete blackPlayer; }
+  if (game) {
+    delete game;
+  }
+  if (whitePlayer) {
+    delete whitePlayer;
+  }
+  if (blackPlayer) {
+    delete blackPlayer;
+  }
 }
