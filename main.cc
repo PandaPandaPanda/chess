@@ -167,7 +167,7 @@ main()
   cout << setprecision(1);
   cout << "Final Score:" << endl;
   cout << "White: " << whiteScore << endl;
-  cout << "Black: " << whiteScore << endl;
+  cout << "Black: " << blackScore << endl;
 
   if (game) { delete game; }
   if (whitePlayer) { delete whitePlayer; }
