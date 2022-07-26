@@ -19,6 +19,7 @@ class Game
 
   bool canMove(std::pair<int, int> start, std::pair<int, int> dest);
   bool isCheckMate();
+  bool isStaleMate();
   void invalidateEnPassant();
   std::pair<bool, Color> strToColor(std::string color);
 

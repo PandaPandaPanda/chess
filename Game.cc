@@ -9,6 +9,7 @@
 #include "Color.h"
 #include "Computer.h"
 #include "Exception.h"
+#include "King.h"
 #include "Pawn.h"
 #include "Player.h"
 #include "Team.h"
@@ -79,6 +80,19 @@ Game::isCheckMate()
     }
   }
 
+  return true;
+}
+
+bool Game::isStaleMate() {
+  Team* team = turnColor == Color::Black ? &black : &white;
+  if (((King *)team->getKing())->inCheck(b)) {
+    return false;
+  }
+  for (const auto p : team->getPieces()) {
+    if (p->getPossibleMoves().size() > 0) {
+      return false;
+    }
+  }
   return true;
 }
 
@@ -279,6 +293,11 @@ Game::move(std::pair<int, int> start, std::pair<int, int> dest)
     }
 
     turnColor = turnColor == Color::Black ? Color::White : Color::Black;
+
+    if (isStaleMate()) {
+        endgame = true;
+        // winner = ?; // todo
+    }
 
     invalidateEnPassant();
 
