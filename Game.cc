@@ -306,9 +306,13 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
         return false;
     }
 
+    cout << "debug move 1" << endl;
+
     if (!b.getChessPiece(start.first, start.second)->canMove(dest, b)) {
         return false;
     }
+
+cout << "debug move 2" << endl;
 
     const ChessPiece* p = b.getChessPiece(dest.first, dest.second);
     if (p) {  // normal capturing
@@ -335,6 +339,8 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
             b.move({start.first, 0}, {start.first, start.second - 1});
         }
     }
+
+cout << "debug move 3" << endl;
 
     bool promote = false;
     ChessType ct;
@@ -373,7 +379,11 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
         }
     }
 
+cout << "debug move 4" << endl;
+
     b.move(start, dest);
+
+cout << "debug move 5" << endl;
 
     if (promote) {
         if (turnColor == Color::Black) {
@@ -382,6 +392,8 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
             white.promotePawn((Pawn*)b.getChessPiece(dest.first, dest.second), ct);
         }
     }
+
+cout << "debug move 6" << endl;
 
     if (isCheckMate()) {
         cout << "debug checkmate" << endl;
