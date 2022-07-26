@@ -51,7 +51,6 @@ void Computer3::doSetup(Board *b, Team *homeTeam, Team *oppTeam) {
     this->homeTeam = homeTeam;
     this->oppTeam = oppTeam;
     c2.setup(b, oppTeam, homeTeam);
-    Computer2::doSetup(b, homeTeam, oppTeam);
 }
 
 Computer3::Computer3() : c2{Computer2{}} {}

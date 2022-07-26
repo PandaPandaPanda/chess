@@ -78,7 +78,6 @@ void Computer2::doSetup(Board *b, Team *homeTeam, Team *oppTeam) {
     this->b = b;
     this->homeTeam = homeTeam;
     this->oppTeam = oppTeam;
-    Computer1::doSetup(b, homeTeam, oppTeam);
 }
 
 Computer2::Computer2() {}

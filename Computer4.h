@@ -6,6 +6,7 @@ class Board;
 class Team;
 
 class Computer4 : public Computer3 {
+    Computer2 c2;
     void doSetup(Board *b, Team *homeTeam, Team *oppTeam) override;
 
    protected:
