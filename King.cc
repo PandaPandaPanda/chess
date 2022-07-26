@@ -21,7 +21,7 @@ bool King::enemyCanAttack(const std::pair<int, int> pos, const Board &b) const {
           for (const auto v : King::moveVectors) {
             const pair<int, int> enemyKingPos = p->getPosition();
             const pair<int, int> attackedPos = {enemyKingPos.first + v.first, enemyKingPos.second + v.second};
-            cout << "debug enemycanattack " << attackedPos.first << " " << attackedPos.second << endl;
+            // cout << "debug enemycanattack " << attackedPos.first << " " << attackedPos.second << endl;
             if (pos == attackedPos) {
               return true;
             }
