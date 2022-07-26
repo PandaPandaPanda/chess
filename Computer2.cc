@@ -19,10 +19,12 @@ pair<pair<int, int>, pair<int, int>> Computer2::doGetMove() {
     cout << "debug 22" << endl;
 
     // prefer capturing
-    vector<vector<bool>> enemyPos(8, vector<bool>(8, false));
+    int value = 0;
+    pair<pair<int, int>, pair<int, int>> res;
+    vector<vector<int>> enemyPos(8, vector<int>(8, 0));
     for (int i = 0; i < (int)oppTeam->getPieces().size(); i++) {
         pair<int, int> pos = oppTeam->getPieces().at(i)->getPosition();
-        enemyPos[pos.first][pos.second] = true;
+        enemyPos[pos.first][pos.second] = oppTeam->getPieces().at(i)->getValue();
     }
 
     cout << "debug 23" << endl;
@@ -40,11 +42,17 @@ pair<pair<int, int>, pair<int, int>> Computer2::doGetMove() {
         for (int i = 0; i < (int)myPiece->getPossibleMoves(*b).size(); i++) {
             pair<int, int> myMove = myPiece->getPossibleMoves(*b)[i];
 cout << "debug 27" << endl;
-            if (enemyPos[myMove.first][myMove.second] == true) {
-                return {myPiece->getPosition(), myMove};
+            if (enemyPos[myMove.first][myMove.second] != 0) {
+                if (enemyPos[myMove.first][myMove.second] > value) {
+                    value = enemyPos[myMove.first][myMove.second];
+                    res = {myPiece->getPosition(), myMove};
+                }
             }
             cout << "debug 28" << endl;
         }
+    }
+    if (value > 0) {
+        return res;
     }
 
     cout << "debug 29" << endl;
