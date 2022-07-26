@@ -22,6 +22,9 @@ class Game
   bool isCheckMate();
   bool isStaleMate();
   void invalidateEnPassant();
+  std::pair<const ChessPiece *, int> oneAttackingPiece(const ChessPiece *king); // king being attacked by exactly one piece
+  bool knightAttackingKing(const ChessPiece *king); // king being attacked by knight
+  bool canBlockCheck(const ChessPiece *attackingPiece, const ChessPiece *king);
   std::pair<bool, Color> strToColor(std::string color);
 
 public:

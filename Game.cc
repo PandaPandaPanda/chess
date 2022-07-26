@@ -84,15 +84,86 @@ bool Game::isCheckMate() {
         }
     }
 
-    // if (oneAttackingPiece()) {
-    //     // 3) It is not possible to capture the attacking piece (impossible if there is more than one attacking piece).
+    const pair<const ChessPiece *, int> pair = oneAttackingPiece(oppTeam->getKing());
+    const ChessPiece *attackingPiece = pair.first;
+    const int count = pair.second;
+    if (count == 0) {
+        cout << "This shouldn't happen" << endl;
+        return false;
+    }
+    if (count == 1) {
+        // 3) It is not possible to capture the attacking piece (impossible if there is more than one attacking piece).
 
-
-    //     // 4) It is not possible to interpose a piece between the king and the attacking piece (impossible if there is more than one attacking piece, impossible if the attacking piece is a knight).
-
-    // }
+        // 4) It is not possible to interpose a piece between the king and the attacking piece (impossible if there is more than one attacking piece, impossible if the attacking piece is a knight).
+        if (canBlockCheck(attackingPiece, oppTeam->getKing()) && attackingPiece->getType() != ChessType::KNIGHT) {
+            return false;
+        }
+    }
+    // count > 1, so checkmate is guaranteed
 
     return true;
+}
+
+pair<const ChessPiece *, int> Game::oneAttackingPiece(const ChessPiece *king) {
+    int count = 0;
+    Team *enemyTeam = king->getColor() == Color::White ? &black : &white;
+    const ChessPiece *attackingPiece = nullptr;
+    for (const auto enemy : enemyTeam->getPieces()) {
+        if (enemy->canMove(king->getPosition(), b)) {
+            ++count;
+            if (attackingPiece != nullptr) {
+                return {nullptr, count}; // found two attacking pieces
+            }
+            attackingPiece = enemy;
+        }
+    }
+    return {attackingPiece, count};
+}
+
+bool Game::canBlockCheck(const ChessPiece *attackingPiece, const ChessPiece *king) {
+    ChessType t = attackingPiece->getType();
+    if (t != ChessType::BISHOP && t != ChessType::ROOK && t != ChessType::QUEEN) {
+        return false;
+    }
+    Team *kingTeam = king->getColor() == Color::Black ? &black : &white;
+    vector<pair<int, int>> blockablePositions;
+    int dr = 0;
+    int dc = 0;
+    pair<int, int> atckPos = attackingPiece->getPosition();
+    const pair<int, int> kingPos = king->getPosition();
+    if (kingPos.first < atckPos.first) {
+        dr = -1;
+    } else if (atckPos.first < kingPos.first) {
+        dr = 1;
+    }
+    if (kingPos.second < atckPos.second) {
+        dc = -1;
+    } else if (atckPos.second < kingPos.second) {
+        dc = 1;
+    }
+    while (atckPos != kingPos) {
+        atckPos.first += dr;
+        atckPos.second += dc;
+        blockablePositions.emplace_back(atckPos);
+    }
+    for (const auto blockablePosition : blockablePositions) {
+        for (const auto friendly : kingTeam->getPieces()) {
+            if (friendly->getType() != ChessType::KING && friendly->canMove(blockablePosition, b)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Game::knightAttackingKing(const ChessPiece *king) {
+    Team *enemyTeam = king->getColor() == Color::White ? &black : &white;
+    for (const auto enemy : enemyTeam->getPieces()) {
+        if (enemy->getType() == ChessType::KNIGHT && enemy->canMove(king->getPosition(), b)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool Game::isStaleMate() {
