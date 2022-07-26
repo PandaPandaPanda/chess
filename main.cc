@@ -14,7 +14,6 @@
 
 using namespace std;
 
-// where do we get the board and team from?
 SDL_Runner r;
 
 Player*

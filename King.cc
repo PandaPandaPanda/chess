@@ -21,7 +21,6 @@ bool King::enemyCanAttack(const std::pair<int, int> pos, const Board &b) const {
           for (const auto v : King::moveVectors) {
             const pair<int, int> enemyKingPos = p->getPosition();
             const pair<int, int> attackedPos = {enemyKingPos.first + v.first, enemyKingPos.second + v.second};
-            // cout << "debug enemycanattack " << attackedPos.first << " " << attackedPos.second << endl;
             if (pos == attackedPos) {
               return true;
             }
@@ -46,32 +45,22 @@ vector<pair<int, int>> King::possibleMoves(const Board &b) const {
   vector<pair<int, int>> moves;
   const Color myColor = getColor();
   const pair<int, int> myPos = getPosition();
-  // cout << "debug king 0" << endl;
   for (const auto &v : moveVectors) {
     const pair<int, int> pos = {myPos.first + v.first, myPos.second + v.second};
-    // cout << "debug king 0.1" << endl;
     if (inBounds(pos)) {
       const ChessPiece *p = b.getChessPiece(pos.first, pos.second);
-      // cout << "debug king 0.2" << endl;
       if (p == nullptr && !enemyCanAttack(pos, b)) {
-        // cout << "debug king 0.3" << endl;
         moves.emplace_back(pos);
       } else {
-        // cout << "debug king 0.4" << endl;
         if (p == nullptr) {
-          // cout << "debug king 0.5" << endl;
           continue;
         }
         if (p->getColor() != myColor) { // attacking own piece
-          // technically not correct, we would need to check if taking this piece
-          // would put king in check (todo)
-          // ChessPiece::canMove is not sufficient, we need ChessPiece::defending
           moves.emplace_back(pos);
         }
       }
     }
   }
-  // cout << "debug king 1" << endl;
   const pair<int, int> castleLeft = {myPos.first, myPos.second - 2};
   const pair<int, int> castleRight = {myPos.first, myPos.second + 2};
   if (canDoMove(castleLeft, b)) {
@@ -79,7 +68,6 @@ vector<pair<int, int>> King::possibleMoves(const Board &b) const {
   } else if (canDoMove(castleRight, b)) {
     moves.emplace_back(castleRight);
   }
-  // cout << "debug king 2" << endl;
   return moves;
 }
 

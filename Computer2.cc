@@ -7,16 +7,6 @@
 using namespace std;
 
 pair<pair<int, int>, pair<int, int>> Computer2::doGetMove() {
-    cout << "debug 21" << endl;
-
-    if (!homeTeam) {
-        cout << "debug hometeam empty" << endl;
-    }
-    if (!oppTeam) {
-        cout << "debug oppTeam empty" << endl;
-    }
-
-    cout << "debug 22" << endl;
 
     // prefer capturing
     int value = 0;
@@ -27,35 +17,23 @@ pair<pair<int, int>, pair<int, int>> Computer2::doGetMove() {
         enemyPos[pos.first][pos.second] = oppTeam->getPieces().at(i)->getValue();
     }
 
-    cout << "debug 23" << endl;
 
     for (int i = 0; i < (int)homeTeam->getPieces().size(); i++) {
-        if (!homeTeam->getPieces().at(i)) {
-            cout << "debug empty" << endl;
-        }
-        cout << "debug 24" << endl;
         const ChessPiece *myPiece = homeTeam->getPieces().at(i);
-        cout << "debug 25" << endl;
-        cout << myPiece->getType() << endl;
         myPiece->getPossibleMoves(*b);
-        cout << "debug 26" << endl;
         for (int i = 0; i < (int)myPiece->getPossibleMoves(*b).size(); i++) {
             pair<int, int> myMove = myPiece->getPossibleMoves(*b)[i];
-cout << "debug 27" << endl;
             if (enemyPos[myMove.first][myMove.second] != 0) {
                 if (enemyPos[myMove.first][myMove.second] > value) {
                     value = enemyPos[myMove.first][myMove.second];
                     res = {myPiece->getPosition(), myMove};
                 }
             }
-            cout << "debug 28" << endl;
         }
     }
     if (value > 0) {
         return res;
     }
-
-    cout << "debug 29" << endl;
 
     // prefer checking
     for (int i = 0; i < (int)homeTeam->getPieces().size(); i++) {
@@ -66,11 +44,9 @@ cout << "debug 27" << endl;
             if (b->checkInCheck(myMove, oppTeam->getKing()->getPosition())) {
                 return {myPiece->getPosition(), myMove};
             }
-            cout << "debug 30" << endl;
         }
     }
 
-    cout << "debug 31" << endl;
     return Computer1::getMove();
 }
 
