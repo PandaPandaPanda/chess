@@ -93,6 +93,9 @@ bool Game::isCheckMate() {
     }
     if (count == 1) {
         // 3) It is not possible to capture the attacking piece (impossible if there is more than one attacking piece).
+        if (canCaptureAttacking(attackingPiece)) {
+            return false;
+        }
 
         // 4) It is not possible to interpose a piece between the king and the attacking piece (impossible if there is more than one attacking piece, impossible if the attacking piece is a knight).
         if (canBlockCheck(attackingPiece, oppTeam->getKing()) && attackingPiece->getType() != ChessType::KNIGHT) {
@@ -118,6 +121,16 @@ pair<const ChessPiece *, int> Game::oneAttackingPiece(const ChessPiece *king) {
         }
     }
     return {attackingPiece, count};
+}
+
+bool Game::canCaptureAttacking(const ChessPiece *attackingPiece) {
+    Team *attackedTeam = attackingPiece->getColor() == Color::Black ? &white : &black;
+    for (const auto p : attackedTeam->getPieces()) {
+        if (p->canMove(attackingPiece->getPosition(), b)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool Game::canBlockCheck(const ChessPiece *attackingPiece, const ChessPiece *king) {
@@ -347,7 +360,7 @@ bool Game::move(std::pair<int, int> start, std::pair<int, int> dest) {
                 promote = true;
                 break;
             default:
-                cout << "Promoted type can only be one of Q/R/B/N.";
+                cout << "Promoted type can only be one of Q/R/B/N." << endl;
                 return false;
         }
     }
