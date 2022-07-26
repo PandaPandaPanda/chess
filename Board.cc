@@ -43,10 +43,10 @@ Board::verify()
   for (auto row : grid) {
     for (auto cell : row) {
       if ((cell.getRow() == 0 || cell.getRow() == 7) && cell.getChessPiece() &&
-          cell.getChessPiece()->getType() == 'P') {
+          cell.getChessPiece()->getType() == ChessType::PAWN) {
         return false;
       }
-      if (cell.getChessPiece() && cell.getChessPiece()->getType() == 'K') {
+      if (cell.getChessPiece() && cell.getChessPiece()->getType() == ChessType::KING) {
 
         if (cell.getChessPiece()->getColor() == Color::White) {
           ++wKing;
@@ -157,7 +157,7 @@ Board::move(std::pair<int, int> start, std::pair<int, int> dest)
 pair<int, int>
 Board::stringToCoords(string s)
 {
-  int r = s[1] - '1';
+  int r = 7 - (s[1] - '1');
   int c = s[0] - 'a';
   if (r < 0 || r > 7 || c < 0 || c > 7) {
     return make_pair(-1, -1);

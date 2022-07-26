@@ -236,6 +236,14 @@ Game::move(std::pair<int, int> start, std::pair<int, int> dest)
 
     b.move(start, dest);
 
+    if (b.getChessPiece(dest.first, dest.second)->getType() == ChessType::PAWN && (dest.first == 0 ||dest.first == 7)) { // promotion
+      if (turnColor == Color::Black) {
+        black.promotePawn((Pawn *)b.getChessPiece(dest.first, dest.second), ChessType::QUEEN); // todo allow choice instead of always queen
+      } else {
+        white.promotePawn((Pawn *)b.getChessPiece(dest.first, dest.second), ChessType::QUEEN); // todo allow choice instead of always queen
+      }
+    }
+
     if (isCheckMate()) {
         endgame = true;
         winner = turnColor;  // player wins
