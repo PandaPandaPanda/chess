@@ -78,7 +78,7 @@ Board::verify()
       }
     }
   }
-  // todo
+
   if (wKing != 1 || bKing != 1) {
     return false;
   }

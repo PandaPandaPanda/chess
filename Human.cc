@@ -4,16 +4,10 @@
 
 using namespace std;
 
-void Human::doPlay(Game *g) {
-  // todo
-}
-
-char Human::doGetPromotionChoice() {
-  return ' ';
-}
-
 PlayerType Human::doGetType() { return PlayerType::H; }
 
-Human::Human() {
-  // todo
-}
+// Skeleton for future updates on program structure and handling additional features
+void Human::doPlay(Game *g) {}
+char Human::doGetPromotionChoice() { return ' '; }
+
+Human::Human() {}

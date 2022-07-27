@@ -68,7 +68,7 @@ void ChessPiece::movePiece(const pair<int, int> newPos) {
   hasMoved = true;
 }
 
-ChessPiece::~ChessPiece() {} // todo? nothing for now
+ChessPiece::~ChessPiece() {} 
 
 bool ChessPiece::inBounds(int row, int col) {
   return 0 <= row && row < 8 && 0 <= col && col < 8;

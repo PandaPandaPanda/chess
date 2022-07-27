@@ -260,11 +260,9 @@ void Game::setup() {
             } else {
                 cout << "invalid color" << endl;
             }
-            // todo
+
         } else if (cmd == "done") {
             if (b.verify()) {
-                // todo: add all pieces on the board to their respective teams post
-                // setup
                 break;
             } else {
                 cout << "The state of the board is not valid. Make sure that" << endl;

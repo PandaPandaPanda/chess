@@ -106,13 +106,9 @@ void Computer4::doSetup(Board *b, Team *homeTeam, Team *oppTeam) {
     c2.setup(b, oppTeam, homeTeam);
 }
 
-Computer4::Computer4() : c2{Computer2{}} {
-    // todo
-}
+Computer4::Computer4() : c2{Computer2{}} {}
 
-Computer4::~Computer4() {
-    // todo
-}
+Computer4::~Computer4() {}
 
 pair<pair<int, int>, pair<int, int>> Computer4::getMove() {
     return doGetMove();
